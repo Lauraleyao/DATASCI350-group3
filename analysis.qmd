@@ -1,6 +1,7 @@
 ---
 title: "QTM 350 Final Project Analysis"
 format: html
+bibliography: references.bib
 ---
 **Public Health Infrastructure, Human Capital, and Diverging Life Expectancy Trends in Sub-Saharan Africa and South Asia, 2000–2020**
 
@@ -14,11 +15,11 @@ Tashifa Noor (2588861)
 
 Over the last twenty years, Sub-Saharan Africa and South Asia have experienced substantial changes in sanitation, life expectancy, and economic conditions. The pace and consistency of these changes differ between the two regions. Our core question is: As Sub-Saharan Africa and South Asia underwent major development from 2000 to 2020, to what extent did improvements in public health infrastructure (water and sanitation) and human capital (primary education) correspond to their divergent paths in life expectancy?
 
-Sub-Saharan Africa lags in access to basic drinking water and sanitation, and multiple studies link this gap to slower progress in life expectancy. Gaffan et al. (2023) show that access to basic sanitation substantially reduces early-life mortality risks. Wolf et al. (2018) find that improved drinking water lowers exposure to diarrheal disease, one of the major contributors to preventable child mortality. Prüss-Ustün et al. (2019) estimate that inadequate water, sanitation, and hygiene account for over 800,000 global deaths per year, underscoring the role of WASH infrastructure in shaping survival. Hutton & Chase (2017) further demonstrate that expanding basic sanitation yields large health and economic returns, especially in lower-income regions.
+Sub-Saharan Africa lags in access to basic drinking water and sanitation, and multiple studies link this gap to slower progress in life expectancy. Access to basic sanitation substantially reduces early-life mortality risks @gaffan2023. Improved drinking water lowers exposure to diarrheal disease, one of the major contributors to preventable child mortality @wolf2018. Inadequate water, sanitation, and hygiene account for more than 800,000 global deaths per year @pruss2019, underscoring the importance of WASH infrastructure in shaping survival. Expanding basic sanitation also yields large health and economic returns, especially in lower-income regions @hutton2017.
 
-Primary school enrollment is associated with reduced child mortality due to greater health literacy and care-seeking behaviors (Amegbor & Addae 2023). Education is one of the strongest social determinants of early-life survival (Cutler & Lleras-Muney 2010). Rising GDP per capita supports these improvements by increasing government capacity to invest in essential infrastructure, health systems, and education (Raina & Dar 2025; Bloom et al. 2014). Improvements in early life survival may potentially have associations with overall life expectancy as well.
+Primary school enrollment is associated with reduced child mortality due to greater health literacy and care-seeking behaviors @amegbor2023. Education is one of the strongest social determinants of early-life survival @cutler2010. Rising GDP per capita supports these improvements by increasing government capacity to invest in essential infrastructure, health systems, and education @raina2025 @bloom2014. Improvements in early-life survival may also contribute to longer-term gains in life expectancy.
 
-Compared with Sub-Saharan Africa, South Asia has seen faster increases in water and sanitation access, more rapid economic growth, and rising primary enrollment. These shifts align with steeper improvements in life expectancy (UNICEF 2021; World Bank 2023). We hypothesise that higher levels of basic drinking water access, basic sanitation coverage, primary school enrollment, and GDP per capita will be positively correlated with life expectancy, and this association will be more pronounced in South Asia than in Sub-Saharan Africa.
+Compared with Sub-Saharan Africa, South Asia has seen faster increases in water and sanitation access, more rapid economic growth, and rising primary enrollment. These shifts align with steeper improvements in life expectancy @unicef2021 @worldbank2023. We hypothesize that higher levels of basic drinking water access, basic sanitation coverage, primary school enrollment, and GDP per capita will be positively correlated with life expectancy, and that this association will be more pronounced in South Asia than in Sub-Saharan Africa.
 
 **Data Description**
 
@@ -31,3 +32,5 @@ Compared with Sub-Saharan Africa, South Asia has seen faster increases in water 
 **Results and Discussion**
 
 **Conclusion**
+
+# References
