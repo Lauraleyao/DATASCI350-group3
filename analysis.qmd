@@ -1,8 +1,349 @@
 ---
 title: "Analysis"
 format: html
+
 ---
 
 # Introduction
 
 This is a Quarto document inside the DATASCI350-group3 repo.
+
+
+
+
+
+# Data Analysis / Methodology
+
+
+
+
+## Linear Regression
+To help answer our question we ran three types of linear regression models to see how our predictor variables basic_water_access_pct, basic_sanitation_access_pct, primary_school_enrollment, and gdp_per_capita_constant_usd affected life_expectancy_birth. 
+
+The first type of linear regression model we created was a regular OLS model, where region does not impact life expectancy, therefore treating our dataset as one group. 
+```{python}
+#| include: false
+import pandas as pd
+import statsmodels.api as sm
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# connect to csv file
+df = pd.read_csv("data/qtm350_final.csv")
+
+#Check for NAs and drop them
+df[[
+    "life_expectancy_birth",
+    "basic_water_access_pct",
+    "basic_sanitation_access_pct",
+    "primary_school_enrollment",
+    "gdp_per_capita_constant_usd"
+]].isna().sum()
+
+df_clean = df.replace([np.inf, -np.inf], np.nan).dropna(subset=[
+    "life_expectancy_birth",
+    "basic_water_access_pct",
+    "basic_sanitation_access_pct",
+    "primary_school_enrollment",
+    "gdp_per_capita_constant_usd"
+])
+```
+
+```{python}
+#| echo: false 
+#| label: tbl-lmsimplest
+#| title: "Linear Regression Model Output"
+#| tbl-cap: "Summary of linear regression where region is not a variable"
+
+#One multiple regression ran on all variables, not including region
+
+Y = df_clean["life_expectancy_birth"]
+X = df_clean[[
+    "basic_water_access_pct",
+    "basic_sanitation_access_pct",
+    "primary_school_enrollment",
+    "gdp_per_capita_constant_usd"
+]]
+
+X = sm.add_constant(X)
+
+model = sm.OLS(Y, X).fit()
+print(model.summary())
+```
+
+This gives us a linear model where:
+$$
+{life\_expectancy\_birth}_i
+= \beta_0
++ \beta_1\,\mathrm{basic\_water\_access\_pct}_i
++ \beta_2\,\mathrm{basic\_sanitation\_access\_pct}_i
++ \beta_3\,\mathrm{primary\_school\_enrollment}_i
++ \beta_4\,\mathrm{gdp\_per\_capita\_constant\_usd}_i
++ \varepsilon_i
+$$
+
+More specifically, when we add the coefficients from our model we get:
+$$
+{life\_expectancy\_birth}_i
+= 43.4413
++ 0.1453\mathrm{basic\_water\_access\_pct}_i
++ 0.1111\mathrm{basic\_sanitation\_access\_pct}_i
++ 0.0300\mathrm{primary\_school\_enrollment}_i
+- 8.95\times 10^{-6}\mathrm{gdp\_per\_capita\_constant\_usd}_i
+$$
+
+These coefficients mean: for a one-unit (one percentage-point) increase in basic_water_access_pct, life_expectancy_birth increases by 0.1453 years, holding other predictors constant. A one-percentage-point increase in basic_sanitation_access_pct is associated with a 0.1111-year increase, and a one-percentage-point increase in primary_school_enrollment is associated with a 0.0300-year increase. The gdp_per_capita_constant_usd coefficient (−8.95×10⁻⁶) means an additional $1 in GDP per capita is associated with a −8.95×10⁻⁶-year change in life expectancy. The intercept 43.4413 is the predicted life expectancy when all predictors equal zero.
+
+The regression output showed an F-statistic of 195.1 with a p-value 6.38e-120 (less than our threshold of 0.05), meaning that at least one of our predictors has a significant relationship with life expectancy. Additionally, all the p-values of the coefficients, except for gdp_per_capita_constant_usd were less than 0.05, meaning that we cannot reject the null hypothesis that these variables have no effect on life expectancy. The R-squared value is low at 0.469 meaning that approximately 46.9% of the variance in life expectancy can be explained by the predictors in our model. However, we know there are numerous factors that can affect life expectancy. We wanted to specifically see how improvements in public health infrastructure affected it to answer our question, and also added GDP, as we knew that would be a very obvious confounding variable. 
+
+The second type of linear regression model we created was a parallel lines model, where each region would have its own line, with the same slope but a different intercept. It was important to have a model that separates by region to take into account differences that may arise in the two regions. We created a binary variable called Binary_subsaharan_africa where 1 indicates the country is in Sub-Saharan Africa and 0 (the baseline) indicates the country is in South Asia. 
+```{python}
+#| echo: false 
+#| label: tbl-lmparallel
+#| title: "Parallel Lines Model Output"
+#| tbl-cap: "Summary of parallel lines model"
+
+#Create column for Sub-Saharan Africa binary variable (1=Africa, 0=Asia)
+df_clean["Binary_subsaharan_africa"] = (df_clean["Region"] == "Sub-Saharan Africa").astype(int)
+
+#Run regression with region, parallel lines model (where two regions have parallel lines: same slope, different intercepts)
+
+Y = df_clean["life_expectancy_birth"]
+X = df_clean[[
+    "basic_water_access_pct",
+    "basic_sanitation_access_pct",
+    "primary_school_enrollment",
+    "gdp_per_capita_constant_usd",
+    "Binary_subsaharan_africa"
+]]
+
+X = sm.add_constant(X)
+model = sm.OLS(Y, X).fit()
+print(model.summary())
+```
+
+From this we get two equations predicting life_expectancy_birth - one for each region. 
+
+For South Asia: 
+$$
+{life\_expectancy\_birth}_i=
+52.5842
++0.0929\mathrm{basic\_water\_access\_pct}_i
++0.0852\mathrm{basic\_sanitation\_access\_pct}_i
++0.0301\mathrm{primary\_school\_enrollment}_i
++0.0003\mathrm{gdp\_per\_capita\_constant\_usd}_i
+$$
+
+For Sub-Saharan Africa: 
+$$
+{life\_expectancy\_birth}_i=
+(52.5842-6.0865)
++0.0929\mathrm{basic\_water\_access\_pct}_i
++0.0852\mathrm{basic\_sanitation\_access\_pct}_i
++0.0301\mathrm{primary\_school\_enrollment}_i
++0.0003\mathrm{gdp\_per\_capita\_constant\_usd}_i
+$$
+
+These equations show that holding the predictor variables constant between the two regions, Sub-Saharan Africa's residents have a life expectancy 6.0865 years shorter than South Asia.
+
+The F-statistic of the regression is 188.0 with a p-value of 2.31e-136. This p-value, since it is less than 0.05, tells us that at least one of the predictors we used has a significant relationship with life expectancy. For the individual coefficients, all p-values are significant which means we cannot reject the null hypothesis that these variables have no relationship on life expectancy. The R-squared is 0.515, which is still quite low, but as mentioned previously, we didn’t necessarily want to create a model with all potential predictors of life expectancy, as that isn’t our research question.
+```{python}
+#| echo: false
+#| label: fig-parallelwatervslifeexp
+#| fig-cap: "Water Access: Predicted vs Actual (Parallel Lines Model)"
+
+x_var = "basic_water_access_pct"
+label = "Water Access (%)"
+x_range = np.linspace(df_clean[x_var].min(), df_clean[x_var].max(), 150)
+
+# Mean values for other predictors
+means = {
+    "basic_sanitation_access_pct": df_clean["basic_sanitation_access_pct"].mean(),
+    "primary_school_enrollment": df_clean["primary_school_enrollment"].mean(),
+    "gdp_per_capita_constant_usd": df_clean["gdp_per_capita_constant_usd"].mean()
+}
+
+# Predicted life expectancy for Asia
+pred_asia = (
+    model.params["const"]
+    + model.params["basic_water_access_pct"] * x_range
+    + model.params["basic_sanitation_access_pct"] * means["basic_sanitation_access_pct"]
+    + model.params["primary_school_enrollment"] * means["primary_school_enrollment"]
+    + model.params["gdp_per_capita_constant_usd"] * means["gdp_per_capita_constant_usd"]
+)
+
+# Africa prediction = Asia + region intercept
+pred_africa = pred_asia + model.params["Binary_subsaharan_africa"]
+
+plt.figure(figsize=(7,5))
+
+# Asia scatter (blue)
+plt.scatter(
+    df_clean.loc[df_clean["Binary_subsaharan_africa"] == 0, x_var],
+    df_clean.loc[df_clean["Binary_subsaharan_africa"] == 0, "life_expectancy_birth"],
+    c="blue",
+    alpha=0.6,
+    label="Asia (Actual)"
+)
+
+# Africa scatter (red)
+plt.scatter(
+    df_clean.loc[df_clean["Binary_subsaharan_africa"] == 1, x_var],
+    df_clean.loc[df_clean["Binary_subsaharan_africa"] == 1, "life_expectancy_birth"],
+    c="red",
+    alpha=0.4,
+    label="Africa (Actual)"
+)
+
+# --- Predicted lines ---
+plt.plot(x_range, pred_asia, "k--", label="Asia (Predicted)")
+plt.plot(x_range, pred_africa, "k-", label="Africa (Predicted)")
+
+plt.xlabel(label)
+plt.ylabel("Life Expectancy at Birth")
+plt.title("Life Expectancy vs Water Access — Actual vs Predicted")
+plt.legend()
+plt.grid(alpha=0.3)
+plt.show()
+```
+```{python}
+#| echo: false
+#| label: fig-parallelsanitationvslifeexp
+#| fig-cap: "Sanitation Access: Predicted vs Actual (Parallel Lines Model)"
+
+x_var = "basic_sanitation_access_pct"
+x_range = np.linspace(df_clean[x_var].min(), df_clean[x_var].max(), 150)
+
+# Mean values for other predictors
+means = {
+    "basic_water_access_pct": df_clean["basic_water_access_pct"].mean(),
+    "primary_school_enrollment": df_clean["primary_school_enrollment"].mean(),
+    "gdp_per_capita_constant_usd": df_clean["gdp_per_capita_constant_usd"].mean()
+}
+
+# Predictions for Asia
+pred_asia = (
+    model.params["const"]
+    + model.params["basic_water_access_pct"] * means["basic_water_access_pct"]
+    + model.params["primary_school_enrollment"] * means["primary_school_enrollment"]
+    + model.params["gdp_per_capita_constant_usd"] * means["gdp_per_capita_constant_usd"]
+    + model.params["basic_sanitation_access_pct"] * x_range
+)
+# Predictions for Africa
+pred_africa = pred_asia + model.params["Binary_subsaharan_africa"]
+
+# Plot
+plt.figure(figsize=(7,5))
+plt.scatter(
+    df_clean.loc[df_clean["Binary_subsaharan_africa"] == 0, x_var],
+    df_clean.loc[df_clean["Binary_subsaharan_africa"] == 0, "life_expectancy_birth"],
+    c="blue", alpha=0.6, label="Asia (Actual)"
+)
+plt.scatter(
+    df_clean.loc[df_clean["Binary_subsaharan_africa"] == 1, x_var],
+    df_clean.loc[df_clean["Binary_subsaharan_africa"] == 1, "life_expectancy_birth"],
+    c="red", alpha=0.4, label="Africa (Actual)"
+)
+plt.plot(x_range, pred_asia, "k--", label="Asia (Predicted)")
+plt.plot(x_range, pred_africa, "k-", label="Africa (Predicted)")
+
+plt.xlabel("Basic Sanitation Access (%)")
+plt.ylabel("Life Expectancy at Birth")
+plt.title("Life Expectancy vs Sanitation Access — Actual vs Predicted")
+plt.legend()
+plt.grid(alpha=0.3)
+plt.show()
+```
+
+```{python}
+#| echo: false
+#| label: fig-parallelschoolvslifeexp
+#| fig-cap: "Primary School Enrollment: Predicted vs Actual (Parallel Lines Model)"
+
+x_var = "primary_school_enrollment"
+x_range = np.linspace(df_clean[x_var].min(), df_clean[x_var].max(), 150)
+
+# Mean values for other predictors
+means = {
+    "basic_water_access_pct": df_clean["basic_water_access_pct"].mean(),
+    "basic_sanitation_access_pct": df_clean["basic_sanitation_access_pct"].mean(),
+    "gdp_per_capita_constant_usd": df_clean["gdp_per_capita_constant_usd"].mean()
+}
+
+# Predictions for Asia
+pred_asia = (
+    model.params["const"]
+    + model.params["basic_water_access_pct"] * means["basic_water_access_pct"]
+    + model.params["basic_sanitation_access_pct"] * means["basic_sanitation_access_pct"]
+    + model.params["gdp_per_capita_constant_usd"] * means["gdp_per_capita_constant_usd"]
+    + model.params["primary_school_enrollment"] * x_range
+)
+# Predictions for Africa
+pred_africa = pred_asia + model.params["Binary_subsaharan_africa"]
+
+# Plot
+plt.figure(figsize=(7,5))
+plt.scatter(
+    df_clean.loc[df_clean["Binary_subsaharan_africa"] == 0, x_var],
+    df_clean.loc[df_clean["Binary_subsaharan_africa"] == 0, "life_expectancy_birth"],
+    c="blue", alpha=0.6, label="Asia (Actual)"
+)
+plt.scatter(
+    df_clean.loc[df_clean["Binary_subsaharan_africa"] == 1, x_var],
+    df_clean.loc[df_clean["Binary_subsaharan_africa"] == 1, "life_expectancy_birth"],
+    c="red", alpha=0.4, label="Africa (Actual)"
+)
+plt.plot(x_range, pred_asia, "k--", label="Asia (Predicted)")
+plt.plot(x_range, pred_africa, "k-", label="Africa (Predicted)")
+
+plt.xlabel("Primary School Enrollment (%)")
+plt.ylabel("Life Expectancy at Birth")
+plt.title("Life Expectancy vs Primary School Enrollment — Actual vs Predicted")
+plt.legend()
+plt.grid(alpha=0.3)
+plt.show()
+
+```
+
+These plots show our predicted vs. actual for the three predictor variables of interest. We did not include GDP because it was a confounding variable we included in our regression, but not the main point of our research question.
+South Asia's dots in @fig-parallelwatervslifeexp show that there are much higher levels of water access compared to Sub-Saharan Africa. We observe in @fig-parallelsanitationvslifeexp that South Asia's dots are closely clustered together, while for Sub-Saharan Africa, they are much more widely dispersed- for example a Sanitation Access of 40% may mean a life expectancy anywhere between 45 and 70 years in Sub-Saharan Africa, but in South Asia, a Sanitation Access of 40% means a life expectancy of ~67 years. We can see in @fig-parallelschoolvslifeexp that the blue dots for South Asia are above the red dots for Sub-Saharan Africa, and this is reflected in our model. Sub-Saharan Africa also has a wider range of primary school enrollment compared to South Asia. 
+
+The third type of linear regression model we created was an interaction model. This takes into account the differences between regions, not only in the intercept, but also the slope. This is the most flexible model.
+
+```{python}
+#| echo: false 
+#| label: tbl-lminteraction
+#| title: "Interaction Model Output"
+#| tbl-cap: "Summary of interaction model"
+
+#Interaction model (where two regions have different slopes and intercepts)
+
+# Create interaction terms
+df_clean["water_x_region"] = df_clean["basic_water_access_pct"] * df_clean["Binary_subsaharan_africa"]
+df_clean["sanitation_x_region"] = df_clean["basic_sanitation_access_pct"] * df_clean["Binary_subsaharan_africa"]
+df_clean["school_x_region"] = df_clean["primary_school_enrollment"] * df_clean["Binary_subsaharan_africa"]
+df_clean["gdp_x_region"] = df_clean["gdp_per_capita_constant_usd"] * df_clean["Binary_subsaharan_africa"]
+
+# Y variable
+Y = df_clean["life_expectancy_birth"]
+
+# X variables with interactions
+X = df_clean[[
+    "basic_water_access_pct",
+    "basic_sanitation_access_pct",
+    "primary_school_enrollment",
+    "gdp_per_capita_constant_usd",
+    "Binary_subsaharan_africa",
+    "water_x_region",
+    "sanitation_x_region",
+    "school_x_region",
+    "gdp_x_region"
+]]
+
+X = sm.add_constant(X)
+model_interaction = sm.OLS(Y, X).fit()
+print(model_interaction.summary())
+```
+
+However, for the individual coefficients, there are more p-values greater than 0.05 compared to the linear regression which doesn’t specify region. This means for the variables where p-value > 0.05, we cannot reject the null hypothesis that the variable has no effect on life expectancy. Many of these terms are the interaction coefficients, which may mean that an interaction term is not useful in creating better predictions. Hence, we decided not to use this model in our analysis. 
