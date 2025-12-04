@@ -20,6 +20,8 @@ This is a Quarto document inside the DATASCI350-group3 repo.
 
 # Data Analysis / Methodology
 
+## Variable Correlations: Heatmap
+To begin exploring the relationship between these variables, correlation matrices for the 5 variables of interest (life expectancy at birth, basic water access, basic sanitation access, primary school enrollment, and GDP per capita) in Sub-Saharan Africa and South Asia were calculated and visualized. Since the dataset includes longitudinal data, these variables were averaged at the country level to obtain a single representative value per country. The dataset was then subsetted by region to create two correlation matrices for region-level analysis. The Sub-Saharan Africa region contained 48 countries while South Asia contained 6 countries. Finally, heatmaps were created from the matrices to visualize the Pearson correlation coefficients and show how strongly each variable is associated with each other.
 
 
 
