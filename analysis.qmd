@@ -365,6 +365,65 @@ Primary school enrollment is associated with reduced child mortality due to grea
 
 Compared with Sub-Saharan Africa, South Asia has seen faster increases in water and sanitation access, more rapid economic growth, and rising primary enrollment. These shifts align with steeper improvements in life expectancy @unicef2021 @worldbank2023. We hypothesize that higher levels of basic drinking water access, basic sanitation coverage, primary school enrollment, and GDP per capita will be positively correlated with life expectancy, and that this association will be more pronounced in South Asia than in Sub-Saharan Africa.
 
+# Results
+
+## Variable Correlations: Heatmap
+In Sub-Saharan Africa, all five development indicators show positive correlations with one another. The correlations between life expectancy at birth and each of the 4 other variables range from weak to intermediate correlation strength. The correlation between life expectancy and primary school enrollment is lowest at 0.25, while the correlation with basic water access is highest at 0.53. In South Asia, there is greater variability in correlation between the variables, compared to Sub-Saharan Africa. Life expectancy is positively correlated with basic water access (0.33), basic sanitation access (0.95), and GDP per capita (0.89). Such strong correlation is not seen in Sub-Saharan Africa countries. However, primary school enrollment is negatively correlated with all 4 of the other variables, including a correlation of -0.38 with life expectancy.
+
+```{python}
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+import numpy as np
+
+# load data
+df = pd.read_csv("data/qtm350_final.csv")
+
+# define the 5 variables
+vars = ['life_expectancy_birth', 'basic_water_access_pct', 'basic_sanitation_access_pct', 'primary_school_enrollment', 'gdp_per_capita_constant_usd']
+
+# average by country
+country_means = (
+    df.groupby(["Region", "Country"])[vars]
+      .mean()
+      .reset_index()
+)
+
+# subset countries in each region
+ssa = country_means[country_means["Region"] == "Sub-Saharan Africa"]
+sa  = country_means[country_means["Region"] == "South Asia"]
+
+# compute region-specific correlations
+corr_ssa = ssa[vars].corr()
+corr_sa  = sa[vars].corr()
+
+# plot heatmaps
+mask = np.triu(np.ones_like(corr_ssa, dtype=bool), k=1)
+
+plt.figure(figsize=(10, 4))
+
+plt.subplot(1, 2, 1)
+sns.heatmap(corr_ssa, annot=True, cmap="coolwarm", vmin=-1, vmax=1, mask=mask)
+plt.title("Correlation Matrix – Sub-Saharan Africa")
+
+plt.subplot(1, 2, 2)
+sns.heatmap(corr_sa, annot=True, cmap="coolwarm", vmin=-1, vmax=1, mask=mask)
+plt.title("Correlation Matrix – South Asia")
+
+plt.tight_layout()
+plt.show()
+```
+
+# Discussion
+
+## Variable Correlations: Heatmap
+The correlation patterns differ substantially between Sub-Saharan Africa and South Asia. Sub-Saharan Africa shows moderate and consistently positive associations among all variables, suggesting a relatively uniform pattern in how public health infrastructure, education, economic conditions, and life expectancy relate to one another in this region. In contrast, the South Asian correlations display greater variability, with a mix of strong and weak positive correlations as well as negative ones.
+
+These differences can be interpreted in the context of broader regional characteristics that shape how these indicators tend to co-occur. In Sub-Saharan Africa, where baseline access to clean water and sanitation is relatively low, countries with higher levels of these services also tend to have higher life expectancy, resulting in moderate positive correlations. In South Asia, basic water access is generally higher and less variable, so it may not align as closely with differences in life expectancy. Instead, sanitation access shows a stronger association, consistent with the region’s historically severe sanitation-related disease burden. These contextual differences may help explain why the pattern of associations differs across the two regions.
+
+It is important to note that some of the more extreme or unexpected correlations, particularly in South Asia, may be influenced by the small number of countries in that regional sample. With only 6 observations, individual countries can exert a large influence on the correlation coefficients. In contrast, the Sub-Saharan Africa region includes 48 countries, offering a more stable basis for identifying general patterns. This difference in sample size may account for findings such as the negative correlation between primary school enrollment and life expectancy in South Asia, which is not observed in Sub-Saharan Africa. Overall, there appears to be correlation between these 5 variables, allowing for deeper analysis into how these indicators interact with one another.
+
+
 **Data Description**
 
 **Data analysis**
