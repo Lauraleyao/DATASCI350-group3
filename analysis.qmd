@@ -26,7 +26,6 @@ Compared with Sub-Saharan Africa, South Asia has seen faster increases in water 
 
 **Data Description**
 
-
 # Variable Correlations: Heatmap
 ## Data Analysis / Methodology
 To begin exploring the relationship between these variables, correlation matrices for the 5 variables of interest (life expectancy at birth, basic water access, basic sanitation access, primary school enrollment, and GDP per capita) in Sub-Saharan Africa and South Asia were calculated and visualized. Since the dataset includes longitudinal data, these variables were averaged at the country level to obtain a single representative value per country. The dataset was then subsetted by region to create two correlation matrices for region-level analysis. The Sub-Saharan Africa region contained 48 countries while South Asia contained 6 countries. Finally, heatmaps were created from the matrices to visualize the Pearson correlation coefficients and show how strongly each variable is associated with each other.
@@ -87,9 +86,17 @@ It is important to note that some of the more extreme or unexpected correlations
 
 
 # Linear Regression
+
+## Data Analysis / Methodology
 To help answer our question we ran three types of linear regression models to see how our predictor variables basic_water_access_pct, basic_sanitation_access_pct, primary_school_enrollment, and gdp_per_capita_constant_usd affected life_expectancy_birth. 
 
-The first type of linear regression model we created was a regular OLS model, where region does not impact life expectancy, therefore treating our dataset as one group. 
+The first type of model is a regular OLS model that does not highlight differences in region, rather treats both regions as one overall area that underwent many developments. Although this was helpful in seeing how our predictors generally affect the life_expectancy_birth, we knew we wanted a model that separated by region to take into account differences that may arise in the two regions.
+
+The second type of linear regression model we created was a parallel lines model, where each region would have its own line, with the same slope but a different intercept. We created a binary variable called Binary_subsaharan_africa where 1 indicates the country is in Sub-Saharan Africa and 0 (the baseline) indicates the country is in South Asia. 
+
+The third type of linear regression model we created was an interaction model. This takes into account the differences between regions, not only in the intercept, but also the slope. This is the most flexible model which we initially thought was the best because it's unlikely the two regions have the same slope. However, after running the regression, we decided not to use this for our analysis due to the insignificant p-values produced.
+
+## Results
 ```{python}
 #| include: false
 import pandas as pd
@@ -166,7 +173,6 @@ These coefficients mean: for a one-unit (one percentage-point) increase in basic
 
 The regression output showed an F-statistic of 195.1 with a p-value 6.38e-120 (less than our threshold of 0.05), meaning that at least one of our predictors has a significant relationship with life expectancy. Additionally, all the p-values of the coefficients, except for gdp_per_capita_constant_usd were less than 0.05, meaning that we cannot reject the null hypothesis that these variables have no effect on life expectancy. The R-squared value is low at 0.469 meaning that approximately 46.9% of the variance in life expectancy can be explained by the predictors in our model. However, we know there are numerous factors that can affect life expectancy. We wanted to specifically see how improvements in public health infrastructure affected it to answer our question, and also added GDP, as we knew that would be a very obvious confounding variable. 
 
-The second type of linear regression model we created was a parallel lines model, where each region would have its own line, with the same slope but a different intercept. It was important to have a model that separates by region to take into account differences that may arise in the two regions. We created a binary variable called Binary_subsaharan_africa where 1 indicates the country is in Sub-Saharan Africa and 0 (the baseline) indicates the country is in South Asia. 
 ```{python}
 #| echo: false 
 #| label: tbl-lmparallel
@@ -378,8 +384,6 @@ plt.show()
 These plots show our predicted vs. actual for the three predictor variables of interest. We did not include GDP because it was a confounding variable we included in our regression, but not the main point of our research question.
 South Asia's dots in @fig-parallelwatervslifeexp show that there are much higher levels of water access compared to Sub-Saharan Africa. We observe in @fig-parallelsanitationvslifeexp that South Asia's dots are closely clustered together, while for Sub-Saharan Africa, they are much more widely dispersed- for example a Sanitation Access of 40% may mean a life expectancy anywhere between 45 and 70 years in Sub-Saharan Africa, but in South Asia, a Sanitation Access of 40% means a life expectancy of ~67 years. We can see in @fig-parallelschoolvslifeexp that the blue dots for South Asia are above the red dots for Sub-Saharan Africa, and this is reflected in our model. Sub-Saharan Africa also has a wider range of primary school enrollment compared to South Asia. 
 
-The third type of linear regression model we created was an interaction model. This takes into account the differences between regions, not only in the intercept, but also the slope. This is the most flexible model.
-
 ```{python}
 #| echo: false 
 #| label: tbl-lminteraction
@@ -417,13 +421,14 @@ print(model_interaction.summary())
 
 However, for the individual coefficients, there are more p-values greater than 0.05 compared to the linear regression which doesn’t specify region. This means for the variables where p-value > 0.05, we cannot reject the null hypothesis that the variable has no effect on life expectancy. Many of these terms are the interaction coefficients, which may mean that an interaction term is not useful in creating better predictions. Hence, we decided not to use this model in our analysis. 
 
+## Discussion
+The linear regression results consistently point to positive associations between access to basic water and sanitation and life expectancy, with smaller positive associations for primary school enrollment and little-to-no independent effect from GDP per capita.
 
+The persistent regional intercept gap implies that even after accounting for measured water, sanitation, schooling, and GDP, Sub-Saharan African countries have lower life expectancy than South Asian countries by several years. This gap likely reflects other unmeasured factors (e.g., health system quality, conflict, disease burden, or historical differences) that are not captured by our limited set of covariates.
 
-**Data analysis**
+It's important to note that linear regression outputs rely on Gauss-Markov assumptions which we have not verified here. Additionally, water and sanitation are highly correlated with each other and with other development measures, which may cause multicollinearity and make coefficient interpretation less stable. Moreover, linear regression is a worse fit for data when there is less data to work with. Since South Asia has far less countires than Sub-Saharan Africa, results for South Asia may be more sensitive to outliers.
 
-**Heatmap**
-
-**Linear Regression**
+Overall, the regression results show improvements in public health infrastructure (water and sanitation) are consistently associated with higher life expectancy across specifications. These associations are substantively meaningful: increasing basic water or sanitation access by 10 percentage points is associated with an increase in life expectancy around 1 year, holding other variables constant. Government focus on improving these public health metrics may be helpful in improving life expectancy.
 
 **Results and Discussion**
 

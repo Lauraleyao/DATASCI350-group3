@@ -103,7 +103,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="linear-regression">Linear Regression</h2>
 <p>To help answer our question we ran three types of linear regression models to see how our predictor variables basic_water_access_pct, basic_sanitation_access_pct, primary_school_enrollment, and gdp_per_capita_constant_usd affected life_expectancy_birth.</p>
 <p>The first type of linear regression model we created was a regular OLS model, where region does not impact life expectancy, therefore treating our dataset as one group.</p>
-<div id="tbl-lmsimplest" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="2" title="Linear Regression Model Output">
+<div id="tbl-lmsimplest" class="cell quarto-float quarto-figure quarto-figure-center anchored" title="Linear Regression Model Output" data-execution_count="2">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-lmsimplest-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;1: Summary of linear regression where region is not a variable
@@ -116,7 +116,7 @@ Dep. Variable:     life_expectancy_birth   R-squared:                       0.46
 Model:                               OLS   Adj. R-squared:                  0.466
 Method:                    Least Squares   F-statistic:                     195.1
 Date:                   Mon, 01 Dec 2025   Prob (F-statistic):          6.38e-120
-Time:                           23:03:30   Log-Likelihood:                -2786.4
+Time:                           23:12:31   Log-Likelihood:                -2786.4
 No. Observations:                    890   AIC:                             5583.
 Df Residuals:                        885   BIC:                             5607.
 Df Model:                              4                                         
@@ -164,7 +164,7 @@ strong multicollinearity or other numerical problems.</code></pre>
 <p>These coefficients mean: for a one-unit (one percentage-point) increase in basic_water_access_pct, life_expectancy_birth increases by 0.1453 years, holding other predictors constant. A one-percentage-point increase in basic_sanitation_access_pct is associated with a 0.1111-year increase, and a one-percentage-point increase in primary_school_enrollment is associated with a 0.0300-year increase. The gdp_per_capita_constant_usd coefficient (−8.95×10⁻⁶) means an additional $1 in GDP per capita is associated with a −8.95×10⁻⁶-year change in life expectancy. The intercept 43.4413 is the predicted life expectancy when all predictors equal zero.</p>
 <p>The regression output showed an F-statistic of 195.1 with a p-value 6.38e-120 (less than our threshold of 0.05), meaning that at least one of our predictors has a significant relationship with life expectancy. Additionally, all the p-values of the coefficients, except for gdp_per_capita_constant_usd were less than 0.05, meaning that we cannot reject the null hypothesis that these variables have no effect on life expectancy. The R-squared value is low at 0.469 meaning that approximately 46.9% of the variance in life expectancy can be explained by the predictors in our model. However, we know there are numerous factors that can affect life expectancy. We wanted to specifically see how improvements in public health infrastructure affected it to answer our question, and also added GDP, as we knew that would be a very obvious confounding variable.</p>
 <p>The second type of linear regression model we created was a parallel lines model, where each region would have its own line, with the same slope but a different intercept. It was important to have a model that separates by region to take into account differences that may arise in the two regions. We created a binary variable called Binary_subsaharan_africa where 1 indicates the country is in Sub-Saharan Africa and 0 (the baseline) indicates the country is in South Asia.</p>
-<div id="tbl-lmparallel" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="3" title="Parallel Lines Model Output">
+<div id="tbl-lmparallel" class="cell quarto-float quarto-figure quarto-figure-center anchored" title="Parallel Lines Model Output" data-execution_count="3">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-lmparallel-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;2: Summary of parallel lines model
@@ -177,7 +177,7 @@ Dep. Variable:     life_expectancy_birth   R-squared:                       0.51
 Model:                               OLS   Adj. R-squared:                  0.513
 Method:                    Least Squares   F-statistic:                     188.0
 Date:                   Mon, 01 Dec 2025   Prob (F-statistic):          2.31e-136
-Time:                           23:03:30   Log-Likelihood:                -2745.5
+Time:                           23:12:31   Log-Likelihood:                -2745.5
 No. Observations:                    890   AIC:                             5503.
 Df Residuals:                        884   BIC:                             5532.
 Df Model:                              5                                         
@@ -267,9 +267,9 @@ Figure&nbsp;3: Primary School Enrollment: Predicted vs Actual (Parallel Lines Mo
 </div>
 </div>
 </div>
-<p>These plots show our predicted vs.&nbsp;actual for the three predictor variables of interest. We did not include GDP because it was a confounding variable we included in our regression, but not the main point of our research question. South Asia’s dots in <a href="#fig-parallelwatervslifeexp" class="quarto-xref">Figure&nbsp;1</a> show that there are much higher levels of water access compared to Sub-Saharan Africa. We observe in <a href="#fig-parallelsanitationvslifeexp" class="quarto-xref">Figure&nbsp;2</a> that South Asia’s dots are closely clustered together, while for Sub-Saharan Africa, they are much more widely dispersed- for example a Sanitation Access of 40% may mean a life expectancy anywhere between 45 and 70 years in Sub-Saharan Africa, but in Asia, a Sanitation Access of 40% means a life expectancy of ~67 years. We can see in <a href="#fig-parallelschoolvslifeexp" class="quarto-xref">Figure&nbsp;3</a> that the blue dots for South Asia are above the red dots for Sub-Saharan Africa, and this is reflected in our model. Sub-Saharan Africa also has a wider range of primary school enrollment compared to South Asia.</p>
+<p>These plots show our predicted vs.&nbsp;actual for the three predictor variables of interest. We did not include GDP because it was a confounding variable we included in our regression, but not the main point of our research question. South Asia’s dots in <a href="#fig-parallelwatervslifeexp" class="quarto-xref">Figure&nbsp;1</a> show that there are much higher levels of water access compared to Sub-Saharan Africa. We observe in <a href="#fig-parallelsanitationvslifeexp" class="quarto-xref">Figure&nbsp;2</a> that South Asia’s dots are closely clustered together, while for Sub-Saharan Africa, they are much more widely dispersed- for example a Sanitation Access of 40% may mean a life expectancy anywhere between 45 and 70 years in Sub-Saharan Africa, but in South Asia, a Sanitation Access of 40% means a life expectancy of ~67 years. We can see in <a href="#fig-parallelschoolvslifeexp" class="quarto-xref">Figure&nbsp;3</a> that the blue dots for South Asia are above the red dots for Sub-Saharan Africa, and this is reflected in our model. Sub-Saharan Africa also has a wider range of primary school enrollment compared to South Asia.</p>
 <p>The third type of linear regression model we created was an interaction model. This takes into account the differences between regions, not only in the intercept, but also the slope. This is the most flexible model.</p>
-<div id="tbl-lminteraction" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="7" title="Interaction Model Output">
+<div id="tbl-lminteraction" class="cell quarto-float quarto-figure quarto-figure-center anchored" title="Interaction Model Output" data-execution_count="7">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-lminteraction-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;3: Summary of interaction model
@@ -282,7 +282,7 @@ Dep. Variable:     life_expectancy_birth   R-squared:                       0.52
 Model:                               OLS   Adj. R-squared:                  0.517
 Method:                    Least Squares   F-statistic:                     106.9
 Date:                   Mon, 01 Dec 2025   Prob (F-statistic):          1.10e-134
-Time:                           23:03:30   Log-Likelihood:                -2739.1
+Time:                           23:12:31   Log-Likelihood:                -2739.1
 No. Observations:                    890   AIC:                             5498.
 Df Residuals:                        880   BIC:                             5546.
 Df Model:                              9                                         
