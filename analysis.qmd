@@ -90,6 +90,119 @@ These differences can be interpreted in the context of broader regional characte
 
 It is important to note that some of the more extreme or unexpected correlations, particularly in South Asia, may be influenced by the small number of countries in that regional sample. With only 6 observations, individual countries can exert a large influence on the correlation coefficients. In contrast, the Sub-Saharan Africa region includes 48 countries, offering a more stable basis for identifying general patterns. This difference in sample size may account for findings such as the negative correlation between primary school enrollment and life expectancy in South Asia, which is not observed in Sub-Saharan Africa. Overall, there appears to be correlation between these 5 variables, allowing for deeper analysis into how these indicators interact with one another.
 
+### Variable Correlations: Scatterplots 
+#### Methodology
+This scatterplot analysis portrays the different development trajectories in South Asia and Sub-Saharan Africa between 2000 and 2020 using five indicators: GDP per capita in constant USD, life expectancy at birth, primary school enrollment, basic water access, and basic sanitation access. To compare regional performance, I aggregated yearly data to create trendlines for each region in order to depict long-run outcomes. To assess inequality within regions, I identified the top three and bottom three countries based on their most recent GDP per capita values and plotted all five indicators over time for these subsets. This shows separate visualizations for high-income and low-income countries within each region. All plots combine scatterpoints to show yearly observations and line trends to highlight the trajectories. Together, the regional plots and the top-bottom GDP plots for both Sub-Saharan Africa and South Asia portray not only how the two regions differ overall but also how inequality appears within each region.
+
+### Results 
+The regional comparison plots show how South Asia leads across all five development indicators. Life expectancy rises steadily in both regions, but South Asia maintains a wide lead throughout the period, increasing from roughly 65 to over 73 years. Sub-Saharan Africa improves from about 53 to 63 years, narrowing the gap slightly but not yet approaching South Asia’s levels. Primary school enrollment shows a different pattern as South Asia begins the period with very high enrollment rates, while Sub-Saharan Africa starts much lower but steadily climbs until the two regions come close to converging by 2020. GDP per capita diverges sharply between the regions, with South Asia nearly doubling from around 2,000 to almost 4,000 USD, while Sub-Saharan Africa grows more modestly from about 1,650 to 2,300 USD. Water access improves in both regions, yet South Asia begins at a high baseline and ends the period near universal basic access, while Sub-Saharan Africa lags behind. Sanitation access shows a significant difference as South Asia improves from roughly 40 to nearly 80 percent coverage, compared to Sub-Saharan Africa’s rise from about 25 to the high 30s. 
+
+```{python}
+#| echo: false
+
+import wbgapi as wb
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+data = pd.read_csv('data/qtm350_final.csv')
+
+#averages table
+avg = data[data['Region'].isin(['Sub-Saharan Africa', 'South Asia'])]
+region_year_avgs = avg.groupby(['Region', 'Year']).mean(numeric_only=True).reset_index()
+region_year_avgs
+
+#Life Expectancy Over Time Scatterplot for both regions
+sns.set(style="whitegrid")
+plt.figure(figsize=(12, 6))
+
+sns.scatterplot(
+    data=region_year_avgs,
+    x='Year',
+    y='life_expectancy_birth',
+    hue='Region',
+    s = 200,
+    alpha=0.7,
+)
+
+sns.lineplot(
+    data=region_year_avgs,
+    x='Year',
+    y='life_expectancy_birth',
+    hue='Region',
+    estimator=None,
+    lw=2,
+    legend=False
+)
+
+plt.xticks(
+    ticks=sorted(region_year_avgs['Year'].unique()),
+    labels=sorted(region_year_avgs['Year'].unique()),
+    rotation=45
+)
+
+plt.title("Life Expectancy Over Time in Sub-Saharan Africa")
+plt.xlabel("Year")
+plt.ylabel("Life Expectancy at Birth (Years)")
+plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
+plt.tight_layout()
+plt.show()
+```
+
+The top and bottom GDP-per-capita groups within Sub-Saharan Africa demonstrate significant disparities between the top and bottom 3 GDP countries. High-income countries such as Seychelles, Mauritius, and Gabon reach GDP levels between 7,000 and 19,000 USD, maintain life expectancy above 70, and achieve broad access to water and sanitation. At the other end, the region’s lowest-income countries, Burundi, Central African Republic, and Madagascar experience unstable or declining life expectancy, water access that rarely exceeds 55 percent, and sanitation rates that often remain below 20 percent. Some countries experience dramatic dips in life expectancy, and their primary school enrollment remains far below the higher income nations within the region. 
+
+South Asia’s top and bottom GDP-per-capita groups have a different pattern, characterized by moderate inequality rather than extremes. The highest GDP countries Maldives, Sri Lanka, and Bhutan, show strong gains in income, life expectancy, and service access. However, unlike Sub-Saharan Africa, the lowest-GDP South Asian countries, Bangladesh, Nepal, and India, still perform relatively well on human development dimensions. Life expectancy differences between the top and bottom groups are narrower, typically just 5 to 8 years. Water access is high across both groups, and while sanitation access varies more significantly, even the lower-income countries demonstrate consistent upward progress. Primary school enrollment rates also show gradual convergence, indicating that South Asia’s internal disparities do not reach the severe levels observed in Sub-Saharan Africa’s poorest countries. 
+
+```{python}
+#Top 3 and Bottom 3 Countries by GDP per Capita in Sub-Saharan Africa
+ssa = data[data['Region'].isin(['Sub-Saharan Africa'])]
+
+latest = (
+    ssa.sort_values('Year')
+      .groupby(['Country', 'Region'])
+      .tail(1)
+)
+top3_ssa = (
+    latest.sort_values(by=['Region', 'gdp_per_capita_constant_usd'], ascending=[True, False])
+          .groupby('Region')
+          .head(3)
+)
+
+bottom3_ssa = (
+    latest.sort_values(by=['Region', 'gdp_per_capita_constant_usd'], ascending=[True, True])
+          .groupby('Region')
+          .head(3)
+)
+
+print("Top 3 Countries by GDP per Region:")
+print(top3_ssa[['Region','Country','gdp_per_capita_constant_usd']])
+
+print("\nBottom 3 Countries by GDP per Region:")
+print(bottom3_ssa[['Region','Country','gdp_per_capita_constant_usd']])
+
+#Excerpt from all Scatterplots utilizing Top3/Bottom3 in SSA
+ssa_countries = pd.concat([top3_ssa, bottom3_ssa])['Country'].unique()
+ssa_countries
+
+#GDP per Capita
+sns.set(style="whitegrid")
+plt.figure(figsize=(12, 6))
+
+sns.scatterplot(
+    data=data[data['Country'].isin(ssa_countries)],
+    x='Year',
+    y='gdp_per_capita_constant_usd',
+    hue='Country',
+    s=200,
+    alpha=0.7
+)
+
+```
+
+### Discussion
+The findings indicate that within the different socio-economic conditions of Sub-Saharan Africa and South Asia, South Asia is consistently developing faster than Sub-Saharan Africa for all measures; however, the nature of inequality between countries differs considerably. South Asia continues to have relatively low levels of internal disparity relative to the rate of improvement. Even within the region's lowest GDP countries, there are strong levels of life expectancy, education, and service access. Though they are the poorest countries in South Asia, their GDP still exceeds those of the poorest countries in Sub-Saharan Africa, which suggests that economic gains translate more evenly into human development. In contrast, Sub-Saharan Africa shows both lower overall values and deeper internal inequality. The gap between the richest and poorest Sub-Saharan African countries is larger than the differences observed between South Asia’s highest GDP and lowest GDP countries. The poorest states within Sub-Saharan Africa grapple with limited state capacity as an implication of their low GDP, leading to instability in health outcomes and slower progress in basic services [@leiss2021]. These results suggest that while both regions improve over time, structural and political barriers continue to hamper and unevenly influence development in Sub-Saharan Africa.
+
+Across both regions, South Asia’s development trajectory shows how improvements in health, education, and infrastructure can accompany economic growth and reduce internal disparities, while Sub-Saharan Africa’s performance demonstrates how instability and weak state institutions can hinder the translation of growth into broadly shared development gains. This suggests that effective policy interventions must not only target regional inequalities but focus especially on the structural constraints facing the lowest-performing states, where gains in stability and availability of critical services and resources could have the greatest long-term impact.
 
 ### Linear Regression
 
