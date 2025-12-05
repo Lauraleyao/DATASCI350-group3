@@ -436,6 +436,167 @@ It's important to note that linear regression outputs rely on Gauss-Markov assum
 
 Overall, the regression results show improvements in public health infrastructure (water and sanitation) are consistently associated with higher life expectancy across specifications. These associations are substantively meaningful: increasing basic water or sanitation access by 10 percentage points is associated with an increase in life expectancy around 1 year, holding other variables constant. Government focus on improving these public health metrics may be helpful in improving life expectancy.
 
+### Random Forest 
+```{python}
+#| label: setup
+#| echo: false
+#| message: false
+#| warning: false
+# pip install scikit-learn
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.ensemble import RandomForestRegressor
+from IPython.display import display
+
+country_map = {
+    'BDI': 'Burundi', 'COD': 'Democratic Republic of the Congo', 'ETH': 'Ethiopia',
+    'MUS': 'Mauritius', 'GNQ': 'Equatorial Guinea', 'SYC': 'Seychelles',
+    'NPL': 'Nepal', 'BGD': 'Bangladesh', 'IND': 'India',
+    'BTN': 'Bhutan', 'LKA': 'Sri Lanka', 'MDV': 'Maldives'
+}
+features = ['gdp_per_capita_constant_usd', 'primary_school_enrollment', 
+            'basic_water_access_pct', 'basic_sanitation_access_pct']
+col_rename = {'gdp_per_capita_constant_usd': 'GDP', 'primary_school_enrollment': 'School_Enroll',
+              'basic_water_access_pct': 'Water_Access', 'basic_sanitation_access_pct': 'Sanitation'}
+
+data = pd.read_csv('data/qtm350_final.csv').dropna(subset=features + ['life_expectancy_birth'])
+
+
+def get_importance(df):
+    if len(df) < 5: return None
+    rf = RandomForestRegressor(n_estimators=100, random_state=1234)
+    rf.fit(df[features], df['life_expectancy_birth'])
+    return pd.Series(rf.feature_importances_ * 100, index=features)
+
+def create_single_plot(data_list, title_text):
+    if not data_list: return
+    
+    df = pd.DataFrame(data_list).rename(columns=col_rename)
+    
+    fig, ax = plt.subplots(figsize=(10, 5))
+    df.plot(kind='barh', stacked=True, ax=ax, cmap='viridis', edgecolor='white')
+    
+    ax.set_title(title_text, fontsize=14, fontweight='bold')
+    ax.set_xlabel('Relative Importance (%)')
+    ax.legend(loc='lower right', title='Variables')
+    ax.grid(axis='x', linestyle='--', alpha=0.5)
+    plt.tight_layout()
+    plt.show()
+```
+
+To further explore relationships in the data without being bound by the strict assumptions of linearity (as seen in the previous regression models), we turned to a Random Forest approach. This allows us to assess the relative importance of each predictor in a non-linear context and better understand how these infrastructure variables rank against one another.
+
+#### Methdology
+This analysis employs a Random Forest Regressor to determine the feature importance of various socioeconomic indicators on Life Expectancy at Birth. The study focuses on two distinct regions: Sub-Saharan Africa and South Asia. We further investigate specific countries within those regions based on their GDP rankings and select the three highest and three lowest.
+
+#### Modeling Approach
+```{python}
+#| label: model-training
+#| echo: false
+
+tables = {'Regions': [], 'Sub-Saharan Africa': [], 'South Asia': []}
+
+for region in ['Sub-Saharan Africa', 'South Asia']:
+    if data.empty: break 
+    
+    # A. Regional Analysis
+    reg_df = data[data['Region'] == region]
+    imp = get_importance(reg_df)
+    if imp is not None:
+        imp.name = region
+        tables['Regions'].append(imp)
+    
+    # B. Country Selection
+    valid_counts = reg_df['Country'].value_counts()
+    valid_countries = valid_counts[valid_counts >= 5].index
+    reg_valid = reg_df[reg_df['Country'].isin(valid_countries)]
+    
+    # Rank by GDP (3 Lowest + 3 Highest)
+    if not reg_valid.empty:
+        gdp_rank = reg_valid.groupby('Country')['gdp_per_capita_constant_usd'].mean().sort_values()
+        selection = gdp_rank.index[:3].tolist() + gdp_rank.index[-3:].tolist()
+        
+        # C. Country Analysis
+        for code in selection:
+            c_imp = get_importance(reg_valid[reg_valid['Country'] == code])
+            if c_imp is not None:
+                c_imp.name = country_map.get(code, code)
+                tables[region].append(c_imp)
+```
+
+A Random Forest Regressor is initialized with 100 estimators and a fixed random state for reproducibility. The model is trained to predict life expectancy based on the four features listed above.
+The core metric extracted is Feature Importance, which indicates the relative percentage contribution of each feature in predicting the target variable. The analysis is performed at two levels:
+1. **Regional Level**: Aggregating all data for "Sub-Saharan Africa" and "South Asia".
+2. **Country Level**: Selecting the 3 countries with the lowest mean GDP and the 3 countries with the highest mean GDP within each region (provided they have at least 5 data points) to contrast developmental drivers.
+
+#### Results
+
+The Random Forest analysis produced feature importance scores for two aggregate regions and twelve individual countries. These scores quantify the relative power of GDP, Primary School Enrollment, Water Access, and Sanitation Access in predicting Life Expectancy at Birth.
+
+##### 1. Regional Level Analysis
+At the macro level, the two regions exhibit fundamentally different predictive profiles:
+* **South Asia:** The model identifies a singular, dominant driver: **Basic Sanitation Access**, which commands **73.79%** of the feature importance. This implies that at a regional scale, the variation in sanitation standards is the primary mathematical differentiator for life expectancy. GDP (13.29%) and Water Access (10.88%) play secondary roles, while Primary School Enrollment (2.04%) has negligible predictive power in this aggregate view.
+* **Sub-Saharan Africa:** This region displays a "balanced dependency" model. No single factor holds a monopoly on influence. **Sanitation (33.18%)** and **Water Access (29.82%)** are the strongest predictors, indicating that physical infrastructure is critical. However, **GDP (23.03%)** and **School Enrollment (13.97%)** contribute significantly, suggesting a complex environment where economic and social factors are inextricably linked to health outcomes.
+
+```{python}
+#| label: fig-regional
+#| echo: false
+#| fig-cap: "Feature importance comparison between aggregated regions."
+
+create_single_plot(tables['Regions'], "Regional Influence on Life Expectancy")
+```
+
+##### 2. Country-Level: Sub-Saharan Africa
+Separating countries by economic output reveals a progression in what determines health outcomes:
+* **Low-GDP Cluster (Burundi, DRC, Ethiopia):**
+    * **Burundi** represents an extreme case of infrastructure dependency, where **Water Access (79.36%)** is effectively the sole predictor of life expectancy.
+    * **Ethiopia** and the **DRC** show more distributed profiles, yet physical infrastructure remains paramount. In Ethiopia, Water (33.04%) and GDP (31.45%) are nearly tied as the top determinants.
+* **High-GDP Cluster (Mauritius, Equatorial Guinea, Seychelles):**
+    * A distinct shift occurs in these wealthier nations. For **Mauritius** and **Equatorial Guinea**, **Primary School Enrollment** rises to become the number one predictor (33.43% and 33.96% respectively).
+    * **Seychelles** remains heavily reliant on **Water Access (38.29%)**, but **School Enrollment (26.21%)** acts as a strong secondary driver, far exceeding its importance in lower-income neighbors.
+
+```{python}
+#| label: fig-ssa
+#| echo: false
+#| fig-cap: "Feature importance for Sub-Saharan African countries, sorted by GDP."
+
+create_single_plot(tables['Sub-Saharan Africa'], "Sub-Saharan Africa: Country Comparison")
+```
+
+##### 3. Country-Level: South Asia
+While the regional model pointed to Sanitation, the individual country models tell a different story of economic reliance.
+* **The GDP-Water Nexus:** For **India, Bhutan, Nepal, and Sri Lanka**, the models consistently prioritize **GDP per Capita** (ranging ~32-37%) and **Water Access** (~30-35%) as the top two features.
+* **The Outliers (Maldives & Bangladesh):**
+    * The **Maldives** deviates significantly from its neighbors. Here, **GDP (7.28%)** is the *least* important factor, while **School Enrollment (35.38%)** is the top driver, resembling the profile of a high-income island nation like Mauritius rather than India.
+    * **Bangladesh** also shows a higher reliance on **School Enrollment (24.24%)** compared to the rest of the region (e.g., India at 4.87%).
+
+```{python}
+#| label: fig-sa
+#| echo: false
+#| fig-cap: "Feature importance for South Asian countries, sorted by GDP."
+
+create_single_plot(tables['South Asia'], "South Asia: Country Comparison")
+```
+---
+
+#### Insights and Discussion
+
+##### The Hierarchy of Health Needs
+The results strongly support a "hierarchy of needs" theory in public health development.
+1.  **Survival Phase:** In low-income contexts like **Burundi**, the singular dominance of **Water Access (79%)** implies a bottleneck effect. Until a population has reliable access to clean water, improvements in education or marginal increases in GDP may fail to translate into significant longevity gains.
+2.  **Economic Transition:** As seen in **India** and **Ethiopia**, developing economies enter a phase where **GDP** and **Infrastructure** become co-dependent drivers. Life expectancy in this phase tracks closely with economic growth.
+3.  **Social Development Phase:** In wealthier nations like **Mauritius** and **Equatorial Guinea**, the model shifts weight to **Education**. This suggests that once basic biological survival needs (water/sanitation) are met, longevity is driven by the long-term benefits of education, such as health literacy and lifestyle choices.
+
+##### The "Sanitation Anomaly" and Simpson's Paradox
+A critical insight is the massive discrepancy between the South Asia *Regional* model and the *Country* models.
+* **Regional View:** Sanitation explained **73%** of the variance.
+* **Country View:** Sanitation rarely exceeded **24%** importance.
+
+This is a classic case of Simpson's Paradox or aggregation bias. It suggests that **Sanitation Access** is the primary variable distinguishing *between* South Asian countries (inter-country variance). However, *within* any given country, improvements in **GDP** and **Water Access** are the actual mechanisms driving life expectancy growth over time. Policy makers relying solely on the regional model might erroneously overemphasize sanitation interventions in specific contexts where economic support would be more effective.
+
+##### Island Nations vs. Continental Economies
+An interesting sub-pattern emerges among the island nations in the dataset (**Mauritius, Seychelles, Maldives**). Regardless of their region, these nations consistently show **Primary School Enrollment** as a top-tier predictor (26-35%). This may indicate that island economies, which often rely on service or tourism sectors rather than agriculture or heavy industry, have health outcomes that are more tightly coupled with the educational attainment of their workforce.
+
 ## Discussion
 
 ## Conclusion

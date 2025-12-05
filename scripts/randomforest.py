@@ -79,5 +79,3 @@ def plot_comparisons(tables_dict):
         plt.savefig(f"figures/{filename}")
         print(f"Graph saved: figures/{filename}")
         plt.show()
-
-plot_comparisons(tables)
