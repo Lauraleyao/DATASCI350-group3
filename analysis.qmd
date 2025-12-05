@@ -147,7 +147,13 @@ plt.ylabel("Life Expectancy at Birth (Years)")
 plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
 plt.tight_layout()
 plt.show()
+```
 
+The top and bottom GDP-per-capita groups within Sub-Saharan Africa demonstrate significant disparities between the top and bottom 3 GDP countries. High-income countries such as Seychelles, Mauritius, and Gabon reach GDP levels between 7,000 and 19,000 USD, maintain life expectancy above 70, and achieve broad access to water and sanitation. At the other end, the region’s lowest-income countries, Burundi, Central African Republic, and Madagascar experience unstable or declining life expectancy, water access that rarely exceeds 55 percent, and sanitation rates that often remain below 20 percent. Some countries experience dramatic dips in life expectancy, and their primary school enrollment remains far below the higher income nations within the region. 
+
+South Asia’s top and bottom GDP-per-capita groups have a different pattern, characterized by moderate inequality rather than extremes. The highest GDP countries Maldives, Sri Lanka, and Bhutan, show strong gains in income, life expectancy, and service access. However, unlike Sub-Saharan Africa, the lowest-GDP South Asian countries, Bangladesh, Nepal, and India, still perform relatively well on human development dimensions. Life expectancy differences between the top and bottom groups are narrower, typically just 5 to 8 years. Water access is high across both groups, and while sanitation access varies more significantly, even the lower-income countries demonstrate consistent upward progress. Primary school enrollment rates also show gradual convergence, indicating that South Asia’s internal disparities do not reach the severe levels observed in Sub-Saharan Africa’s poorest countries. 
+
+```{python}
 #Top 3 and Bottom 3 Countries by GDP per Capita in Sub-Saharan Africa
 ssa = data[data['Region'].isin(['Sub-Saharan Africa'])]
 
@@ -174,7 +180,7 @@ print(top3_ssa[['Region','Country','gdp_per_capita_constant_usd']])
 print("\nBottom 3 Countries by GDP per Region:")
 print(bottom3_ssa[['Region','Country','gdp_per_capita_constant_usd']])
 
-#Scatterplots utilizing Top3/Bottom3 in SSA
+#Excerpt from all Scatterplots utilizing Top3/Bottom3 in SSA
 ssa_countries = pd.concat([top3_ssa, bottom3_ssa])['Country'].unique()
 ssa_countries
 
@@ -190,14 +196,8 @@ sns.scatterplot(
     s=200,
     alpha=0.7
 )
+
 ```
-
-The top and bottom GDP-per-capita groups within Sub-Saharan Africa demonstrate significant disparities between the top and bottom 3 GDP countries. High-income countries such as Seychelles, Mauritius, and Gabon reach GDP levels between 7,000 and 19,000 USD, maintain life expectancy above 70, and achieve broad access to water and sanitation. At the other end, the region’s lowest-income countries, Burundi, Central African Republic, and Madagascar experience unstable or declining life expectancy, water access that rarely exceeds 55 percent, and sanitation rates that often remain below 20 percent. Some countries experience dramatic dips in life expectancy, and their primary school enrollment remains far below the higher income nations within the region. 
-
-South Asia’s top and bottom GDP-per-capita groups have a different pattern, characterized by moderate inequality rather than extremes. The highest GDP countries Maldives, Sri Lanka, and Bhutan, show strong gains in income, life expectancy, and service access. However, unlike Sub-Saharan Africa, the lowest-GDP South Asian countries, Bangladesh, Nepal, and India, still perform relatively well on human development dimensions. Life expectancy differences between the top and bottom groups are narrower, typically just 5 to 8 years. Water access is high across both groups, and while sanitation access varies more significantly, even the lower-income countries demonstrate consistent upward progress. Primary school enrollment rates also show gradual convergence, indicating that South Asia’s internal disparities do not reach the severe levels observed in Sub-Saharan Africa’s poorest countries. 
-
-
-
 
 ### Discussion
 The findings indicate that within the different socio-economic conditions of Sub-Saharan Africa and South Asia, South Asia is consistently developing faster than Sub-Saharan Africa for all measures; however, the nature of inequality between countries differs considerably. South Asia continues to have relatively low levels of internal disparity relative to the rate of improvement. Even within the region's lowest GDP countries, there are strong levels of life expectancy, education, and service access. Though they are the poorest countries in South Asia, their GDP still exceeds those of the poorest countries in Sub-Saharan Africa, which suggests that economic gains translate more evenly into human development. In contrast, Sub-Saharan Africa shows both lower overall values and deeper internal inequality. The gap between the richest and poorest Sub-Saharan African countries is larger than the differences observed between South Asia’s highest GDP and lowest GDP countries. The poorest states within Sub-Saharan Africa grapple with limited state capacity as an implication of their low GDP, leading to instability in health outcomes and slower progress in basic services [@leiss2021]. These results suggest that while both regions improve over time, structural and political barriers continue to hamper and unevenly influence development in Sub-Saharan Africa.
