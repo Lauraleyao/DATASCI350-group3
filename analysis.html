@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.24">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 /* CSS for citations */
 div.csl-bib-body { }
@@ -51,7 +86,7 @@ div.csl-indent {
 <script src="analysis_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="analysis_files/libs/quarto-html/anchor.min.js"></script>
 <link href="analysis_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="analysis_files/libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="analysis_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="analysis_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="analysis_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="analysis_files/libs/bootstrap/bootstrap-d6a003b94517c951b2d65075d42fb01b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -146,7 +181,7 @@ Tashifa Noor (2588861)</p>
 <div id="fig-heatmap" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="analysis_files/figure-html/fig-heatmap-output-1.png" width="949" height="374" class="figure-img">
+<img src="analysis_files/figure-html/fig-heatmap-output-1.png" width="946" height="372" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1: Correlation Heatmaps for Sub-Saharan Africa and South Asia
@@ -163,18 +198,109 @@ Figure&nbsp;1: Correlation Heatmaps for Sub-Saharan Africa and South Asia
 <p>It is important to note that some of the more extreme or unexpected correlations, particularly in South Asia, may be influenced by the small number of countries in that regional sample. With only 6 observations, individual countries can exert a large influence on the correlation coefficients. In contrast, the Sub-Saharan Africa region includes 48 countries, offering a more stable basis for identifying general patterns. This difference in sample size may account for findings such as the negative correlation between primary school enrollment and life expectancy in South Asia, which is not observed in Sub-Saharan Africa. Overall, there appears to be correlation between these 5 variables, allowing for deeper analysis into how these indicators interact with one another.</p>
 </section>
 </section>
-<section id="linear-regression" class="level3">
-<h3 class="anchored" data-anchor-id="linear-regression">Linear Regression</h3>
+<section id="variable-correlations-scatterplots" class="level3">
+<h3 class="anchored" data-anchor-id="variable-correlations-scatterplots">Variable Correlations: Scatterplots</h3>
 <section id="methodology-1" class="level4">
 <h4 class="anchored" data-anchor-id="methodology-1">Methodology</h4>
+<p>This scatterplot analysis portrays the different development trajectories in South Asia and Sub-Saharan Africa between 2000 and 2020 using five indicators: GDP per capita in constant USD, life expectancy at birth, primary school enrollment, basic water access, and basic sanitation access. To compare regional performance, I aggregated yearly data to create trendlines for each region in order to depict long-run outcomes. To assess inequality within regions, I identified the top three and bottom three countries based on their most recent GDP per capita values and plotted all five indicators over time for these subsets. This shows separate visualizations for high-income and low-income countries within each region. All plots combine scatterpoints to show yearly observations and line trends to highlight the trajectories. Together, the regional plots and the top-bottom GDP plots for both Sub-Saharan Africa and South Asia portray not only how the two regions differ overall but also how inequality appears within each region.</p>
+</section>
+</section>
+<section id="results-1" class="level3">
+<h3 class="anchored" data-anchor-id="results-1">Results</h3>
+<p>The regional comparison plots show how South Asia leads across all five development indicators. Life expectancy rises steadily in both regions, but South Asia maintains a wide lead throughout the period, increasing from roughly 65 to over 73 years. Sub-Saharan Africa improves from about 53 to 63 years, narrowing the gap slightly but not yet approaching South Asia’s levels. Primary school enrollment shows a different pattern as South Asia begins the period with very high enrollment rates, while Sub-Saharan Africa starts much lower but steadily climbs until the two regions come close to converging by 2020. GDP per capita diverges sharply between the regions, with South Asia nearly doubling from around 2,000 to almost 4,000 USD, while Sub-Saharan Africa grows more modestly from about 1,650 to 2,300 USD. Water access improves in both regions, yet South Asia begins at a high baseline and ends the period near universal basic access, while Sub-Saharan Africa lags behind. Sanitation access shows a significant difference as South Asia improves from roughly 40 to nearly 80 percent coverage, compared to Sub-Saharan Africa’s rise from about 25 to the high 30s.</p>
+<div id="05cd9263" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="analysis_files/figure-html/cell-3-output-1.png" width="1132" height="560" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The top and bottom GDP-per-capita groups within Sub-Saharan Africa demonstrate significant disparities between the top and bottom 3 GDP countries. High-income countries such as Seychelles, Mauritius, and Gabon reach GDP levels between 7,000 and 19,000 USD, maintain life expectancy above 70, and achieve broad access to water and sanitation. At the other end, the region’s lowest-income countries, Burundi, Central African Republic, and Madagascar experience unstable or declining life expectancy, water access that rarely exceeds 55 percent, and sanitation rates that often remain below 20 percent. Some countries experience dramatic dips in life expectancy, and their primary school enrollment remains far below the higher income nations within the region.</p>
+<p>South Asia’s top and bottom GDP-per-capita groups have a different pattern, characterized by moderate inequality rather than extremes. The highest GDP countries Maldives, Sri Lanka, and Bhutan, show strong gains in income, life expectancy, and service access. However, unlike Sub-Saharan Africa, the lowest-GDP South Asian countries, Bangladesh, Nepal, and India, still perform relatively well on human development dimensions. Life expectancy differences between the top and bottom groups are narrower, typically just 5 to 8 years. Water access is high across both groups, and while sanitation access varies more significantly, even the lower-income countries demonstrate consistent upward progress. Primary school enrollment rates also show gradual convergence, indicating that South Asia’s internal disparities do not reach the severe levels observed in Sub-Saharan Africa’s poorest countries.</p>
+<div id="865981b0" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Top 3 and Bottom 3 Countries by GDP per Capita in Sub-Saharan Africa</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>ssa <span class="op">=</span> data[data[<span class="st">'Region'</span>].isin([<span class="st">'Sub-Saharan Africa'</span>])]</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>latest <span class="op">=</span> (</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    ssa.sort_values(<span class="st">'Year'</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>      .groupby([<span class="st">'Country'</span>, <span class="st">'Region'</span>])</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>      .tail(<span class="dv">1</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>top3_ssa <span class="op">=</span> (</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    latest.sort_values(by<span class="op">=</span>[<span class="st">'Region'</span>, <span class="st">'gdp_per_capita_constant_usd'</span>], ascending<span class="op">=</span>[<span class="va">True</span>, <span class="va">False</span>])</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>          .groupby(<span class="st">'Region'</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>          .head(<span class="dv">3</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>bottom3_ssa <span class="op">=</span> (</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    latest.sort_values(by<span class="op">=</span>[<span class="st">'Region'</span>, <span class="st">'gdp_per_capita_constant_usd'</span>], ascending<span class="op">=</span>[<span class="va">True</span>, <span class="va">True</span>])</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>          .groupby(<span class="st">'Region'</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>          .head(<span class="dv">3</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Top 3 Countries by GDP per Region:"</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(top3_ssa[[<span class="st">'Region'</span>,<span class="st">'Country'</span>,<span class="st">'gdp_per_capita_constant_usd'</span>]])</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Bottom 3 Countries by GDP per Region:"</span>)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(bottom3_ssa[[<span class="st">'Region'</span>,<span class="st">'Country'</span>,<span class="st">'gdp_per_capita_constant_usd'</span>]])</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">#Excerpt from all Scatterplots utilizing Top3/Bottom3 in SSA</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>ssa_countries <span class="op">=</span> pd.concat([top3_ssa, bottom3_ssa])[<span class="st">'Country'</span>].unique()</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>ssa_countries</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co">#GDP per Capita</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>sns.<span class="bu">set</span>(style<span class="op">=</span><span class="st">"whitegrid"</span>)</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>data[data[<span class="st">'Country'</span>].isin(ssa_countries)],</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'Year'</span>,</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'gdp_per_capita_constant_usd'</span>,</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">'Country'</span>,</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    s<span class="op">=</span><span class="dv">200</span>,</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    alpha<span class="op">=</span><span class="fl">0.7</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Top 3 Countries by GDP per Region:
+                 Region Country  gdp_per_capita_constant_usd
+986  Sub-Saharan Africa     SYC                 17048.361730
+692  Sub-Saharan Africa     MUS                  9362.874359
+356  Sub-Saharan Africa     GAB                  6534.279665
+
+Bottom 3 Countries by GDP per Region:
+                 Region Country  gdp_per_capita_constant_usd
+41   Sub-Saharan Africa     BDI                   255.078218
+167  Sub-Saharan Africa     CAF                   398.834274
+587  Sub-Saharan Africa     MDG                   422.924255</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="analysis_files/figure-html/cell-4-output-2.png" width="985" height="509" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="discussion-1" class="level3">
+<h3 class="anchored" data-anchor-id="discussion-1">Discussion</h3>
+<p>The findings indicate that within the different socio-economic conditions of Sub-Saharan Africa and South Asia, South Asia is consistently developing faster than Sub-Saharan Africa for all measures; however, the nature of inequality between countries differs considerably. South Asia continues to have relatively low levels of internal disparity relative to the rate of improvement. Even within the region’s lowest GDP countries, there are strong levels of life expectancy, education, and service access. Though they are the poorest countries in South Asia, their GDP still exceeds those of the poorest countries in Sub-Saharan Africa, which suggests that economic gains translate more evenly into human development. In contrast, Sub-Saharan Africa shows both lower overall values and deeper internal inequality. The gap between the richest and poorest Sub-Saharan African countries is larger than the differences observed between South Asia’s highest GDP and lowest GDP countries. The poorest states within Sub-Saharan Africa grapple with limited state capacity as an implication of their low GDP, leading to instability in health outcomes and slower progress in basic services <span class="citation" data-cites="leiss2021">(<a href="#ref-leiss2021" role="doc-biblioref">Leiss et al. 2021</a>)</span>. These results suggest that while both regions improve over time, structural and political barriers continue to hamper and unevenly influence development in Sub-Saharan Africa.</p>
+<p>Across both regions, South Asia’s development trajectory shows how improvements in health, education, and infrastructure can accompany economic growth and reduce internal disparities, while Sub-Saharan Africa’s performance demonstrates how instability and weak state institutions can hinder the translation of growth into broadly shared development gains. This suggests that effective policy interventions must not only target regional inequalities but focus especially on the structural constraints facing the lowest-performing states, where gains in stability and availability of critical services and resources could have the greatest long-term impact.</p>
+</section>
+<section id="linear-regression" class="level3">
+<h3 class="anchored" data-anchor-id="linear-regression">Linear Regression</h3>
+<section id="methodology-2" class="level4">
+<h4 class="anchored" data-anchor-id="methodology-2">Methodology</h4>
 <p>To help answer our question we ran three types of linear regression models to see how our predictor variables basic_water_access_pct, basic_sanitation_access_pct, primary_school_enrollment, and gdp_per_capita_constant_usd affected life_expectancy_birth.</p>
 <p>The first type of model is a regular OLS model that does not highlight differences in region, rather treats both regions as one overall area that underwent many developments. Although this was helpful in seeing how our predictors generally affect the life_expectancy_birth, we knew we wanted a model that separated by region to take into account differences that may arise in the two regions.</p>
 <p>The second type of linear regression model we created was a parallel lines model, where each region would have its own line, with the same slope but a different intercept. We created a binary variable called Binary_subsaharan_africa where 1 indicates the country is in Sub-Saharan Africa and 0 (the baseline) indicates the country is in South Asia.</p>
 <p>The third type of linear regression model we created was an interaction model. This takes into account the differences between regions, not only in the intercept, but also the slope. This is the most flexible model which we initially thought was the best because it’s unlikely the two regions have the same slope. However, after running the regression, we decided not to use this for our analysis due to the insignificant p-values produced.</p>
 </section>
-<section id="results-1" class="level4">
-<h4 class="anchored" data-anchor-id="results-1">Results</h4>
-<div id="tbl-lmsimplest" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="3" title="Linear Regression Model Output">
+<section id="results-2" class="level4">
+<h4 class="anchored" data-anchor-id="results-2">Results</h4>
+<div id="tbl-lmsimplest" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="5" title="Linear Regression Model Output">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-lmsimplest-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;1: Summary of linear regression where region is not a variable
@@ -186,8 +312,8 @@ Table&nbsp;1: Summary of linear regression where region is not a variable
 Dep. Variable:     life_expectancy_birth   R-squared:                       0.469
 Model:                               OLS   Adj. R-squared:                  0.466
 Method:                    Least Squares   F-statistic:                     195.1
-Date:                   Thu, 04 Dec 2025   Prob (F-statistic):          6.38e-120
-Time:                           23:30:39   Log-Likelihood:                -2786.4
+Date:                   Fri, 05 Dec 2025   Prob (F-statistic):          6.38e-120
+Time:                           13:48:42   Log-Likelihood:                -2786.4
 No. Observations:                    890   AIC:                             5583.
 Df Residuals:                        885   BIC:                             5607.
 Df Model:                              4                                         
@@ -234,7 +360,7 @@ strong multicollinearity or other numerical problems.</code></pre>
 \]</span></p>
 <p>These coefficients mean: for a one-unit (one percentage-point) increase in basic_water_access_pct, life_expectancy_birth increases by 0.1453 years, holding other predictors constant. A one-percentage-point increase in basic_sanitation_access_pct is associated with a 0.1111-year increase, and a one-percentage-point increase in primary_school_enrollment is associated with a 0.0300-year increase. The gdp_per_capita_constant_usd coefficient (−8.95×10⁻⁶) means an additional $1 in GDP per capita is associated with a −8.95×10⁻⁶-year change in life expectancy. The intercept 43.4413 is the predicted life expectancy when all predictors equal zero.</p>
 <p>The regression output showed an F-statistic of 195.1 with a p-value 6.38e-120 (less than our threshold of 0.05), meaning that at least one of our predictors has a significant relationship with life expectancy. Additionally, all the p-values of the coefficients, except for gdp_per_capita_constant_usd were less than 0.05, meaning that we cannot reject the null hypothesis that these variables have no effect on life expectancy. The R-squared value is low at 0.469 meaning that approximately 46.9% of the variance in life expectancy can be explained by the predictors in our model. However, we know there are numerous factors that can affect life expectancy. We wanted to specifically see how improvements in public health infrastructure affected it to answer our question, and also added GDP, as we knew that would be a very obvious confounding variable.</p>
-<div id="tbl-lmparallel" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="4" title="Parallel Lines Model Output">
+<div id="tbl-lmparallel" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="6" title="Parallel Lines Model Output">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-lmparallel-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;2: Summary of parallel lines model
@@ -246,8 +372,8 @@ Table&nbsp;2: Summary of parallel lines model
 Dep. Variable:     life_expectancy_birth   R-squared:                       0.515
 Model:                               OLS   Adj. R-squared:                  0.513
 Method:                    Least Squares   F-statistic:                     188.0
-Date:                   Thu, 04 Dec 2025   Prob (F-statistic):          2.31e-136
-Time:                           23:30:39   Log-Likelihood:                -2745.5
+Date:                   Fri, 05 Dec 2025   Prob (F-statistic):          2.31e-136
+Time:                           13:48:42   Log-Likelihood:                -2745.5
 No. Observations:                    890   AIC:                             5503.
 Df Residuals:                        884   BIC:                             5532.
 Df Model:                              5                                         
@@ -295,12 +421,12 @@ strong multicollinearity or other numerical problems.</code></pre>
 \]</span></p>
 <p>These equations show that holding the predictor variables constant between the two regions, Sub-Saharan Africa’s residents have a life expectancy 6.0865 years shorter than South Asia.</p>
 <p>The F-statistic of the regression is 188.0 with a p-value of 2.31e-136. This p-value, since it is less than 0.05, tells us that at least one of the predictors we used has a significant relationship with life expectancy. For the individual coefficients, all p-values are significant which means we cannot reject the null hypothesis that these variables have no relationship on life expectancy. The R-squared is 0.515, which is still quite low, but as mentioned previously, we didn’t necessarily want to create a model with all potential predictors of life expectancy, as that isn’t our research question.</p>
-<div id="cell-fig-parallelwatervslifeexp" class="cell" data-execution_count="5">
+<div id="cell-fig-parallelwatervslifeexp" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div id="fig-parallelwatervslifeexp" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-parallelwatervslifeexp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="analysis_files/figure-html/fig-parallelwatervslifeexp-output-1.png" width="585" height="449" class="figure-img">
+<img src="analysis_files/figure-html/fig-parallelwatervslifeexp-output-1.png" width="589" height="455" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-parallelwatervslifeexp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;2: Water Access: Predicted vs Actual (Parallel Lines Model)
@@ -309,12 +435,12 @@ Figure&nbsp;2: Water Access: Predicted vs Actual (Parallel Lines Model)
 </div>
 </div>
 </div>
-<div id="cell-fig-parallelsanitationvslifeexp" class="cell" data-execution_count="6">
+<div id="cell-fig-parallelsanitationvslifeexp" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div id="fig-parallelsanitationvslifeexp" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-parallelsanitationvslifeexp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="analysis_files/figure-html/fig-parallelsanitationvslifeexp-output-1.png" width="585" height="449" class="figure-img">
+<img src="analysis_files/figure-html/fig-parallelsanitationvslifeexp-output-1.png" width="589" height="455" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-parallelsanitationvslifeexp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3: Sanitation Access: Predicted vs Actual (Parallel Lines Model)
@@ -323,12 +449,12 @@ Figure&nbsp;3: Sanitation Access: Predicted vs Actual (Parallel Lines Model)
 </div>
 </div>
 </div>
-<div id="cell-fig-parallelschoolvslifeexp" class="cell" data-execution_count="7">
+<div id="cell-fig-parallelschoolvslifeexp" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div id="fig-parallelschoolvslifeexp" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-parallelschoolvslifeexp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="analysis_files/figure-html/fig-parallelschoolvslifeexp-output-1.png" width="597" height="449" class="figure-img">
+<img src="analysis_files/figure-html/fig-parallelschoolvslifeexp-output-1.png" width="590" height="455" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-parallelschoolvslifeexp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;4: Primary School Enrollment: Predicted vs Actual (Parallel Lines Model)
@@ -338,7 +464,7 @@ Figure&nbsp;4: Primary School Enrollment: Predicted vs Actual (Parallel Lines Mo
 </div>
 </div>
 <p>These plots show our predicted vs.&nbsp;actual for the three predictor variables of interest. We did not include GDP because it was a confounding variable we included in our regression, but not the main point of our research question. South Asia’s dots in <a href="#fig-parallelwatervslifeexp" class="quarto-xref">Figure&nbsp;2</a> show that there are much higher levels of water access compared to Sub-Saharan Africa. We observe in <a href="#fig-parallelsanitationvslifeexp" class="quarto-xref">Figure&nbsp;3</a> that South Asia’s dots are closely clustered together, while for Sub-Saharan Africa, they are much more widely dispersed- for example a Sanitation Access of 40% may mean a life expectancy anywhere between 45 and 70 years in Sub-Saharan Africa, but in South Asia, a Sanitation Access of 40% means a life expectancy of ~67 years. We can see in <a href="#fig-parallelschoolvslifeexp" class="quarto-xref">Figure&nbsp;4</a> that the blue dots for South Asia are above the red dots for Sub-Saharan Africa, and this is reflected in our model. Sub-Saharan Africa also has a wider range of primary school enrollment compared to South Asia.</p>
-<div id="tbl-lminteraction" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="8" title="Interaction Model Output">
+<div id="tbl-lminteraction" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="10" title="Interaction Model Output">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-lminteraction-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;3: Summary of interaction model
@@ -350,8 +476,8 @@ Table&nbsp;3: Summary of interaction model
 Dep. Variable:     life_expectancy_birth   R-squared:                       0.522
 Model:                               OLS   Adj. R-squared:                  0.517
 Method:                    Least Squares   F-statistic:                     106.9
-Date:                   Thu, 04 Dec 2025   Prob (F-statistic):          1.10e-134
-Time:                           23:30:40   Log-Likelihood:                -2739.1
+Date:                   Fri, 05 Dec 2025   Prob (F-statistic):          1.10e-134
+Time:                           13:48:43   Log-Likelihood:                -2739.1
 No. Observations:                    890   AIC:                             5498.
 Df Residuals:                        880   BIC:                             5546.
 Df Model:                              9                                         
@@ -386,17 +512,104 @@ strong multicollinearity or other numerical problems.</code></pre>
 </div>
 <p>However, for the individual coefficients, there are more p-values greater than 0.05 compared to the linear regression which doesn’t specify region. This means for the variables where p-value &gt; 0.05, we cannot reject the null hypothesis that the variable has no effect on life expectancy. Many of these terms are the interaction coefficients, which may mean that an interaction term is not useful in creating better predictions. Hence, we decided not to use this model in our analysis.</p>
 </section>
-<section id="discussion-1" class="level4">
-<h4 class="anchored" data-anchor-id="discussion-1">Discussion</h4>
+<section id="discussion-2" class="level4">
+<h4 class="anchored" data-anchor-id="discussion-2">Discussion</h4>
 <p>The linear regression results consistently point to positive associations between access to basic water and sanitation and life expectancy, with smaller positive associations for primary school enrollment and little-to-no independent effect from GDP per capita.</p>
 <p>The persistent regional intercept gap implies that even after accounting for measured water, sanitation, schooling, and GDP, Sub-Saharan African countries have lower life expectancy than South Asian countries by several years. This gap likely reflects other unmeasured factors (e.g., health system quality, conflict, disease burden, or historical differences) that are not captured by our limited set of covariates.</p>
 <p>It’s important to note that linear regression outputs rely on Gauss-Markov assumptions which we have not verified here. Additionally, water and sanitation are highly correlated with each other and with other development measures, which may cause multicollinearity and make coefficient interpretation less stable. Moreover, linear regression is a worse fit for data when there is less data to work with. Since South Asia has far less countires than Sub-Saharan Africa, results for South Asia may be more sensitive to outliers.</p>
 <p>Overall, the regression results show improvements in public health infrastructure (water and sanitation) are consistently associated with higher life expectancy across specifications. These associations are substantively meaningful: increasing basic water or sanitation access by 10 percentage points is associated with an increase in life expectancy around 1 year, holding other variables constant. Government focus on improving these public health metrics may be helpful in improving life expectancy.</p>
 </section>
 </section>
+<section id="random-forest" class="level3">
+<h3 class="anchored" data-anchor-id="random-forest">Random Forest</h3>
+<p>To further explore relationships in the data without being bound by the strict assumptions of linearity (as seen in the previous regression models), we turned to a Random Forest approach. This allows us to assess the relative importance of each predictor in a non-linear context and better understand how these infrastructure variables rank against one another.</p>
+<section id="methdology" class="level4">
+<h4 class="anchored" data-anchor-id="methdology">Methdology</h4>
+<p>This analysis employs a Random Forest Regressor to determine the feature importance of various socioeconomic indicators on Life Expectancy at Birth. The study focuses on two distinct regions: Sub-Saharan Africa and South Asia. We further investigate specific countries within those regions based on their GDP rankings and select the three highest and three lowest.</p>
 </section>
-<section id="discussion-2" class="level2">
-<h2 class="anchored" data-anchor-id="discussion-2">Discussion</h2>
+<section id="modeling-approach" class="level4">
+<h4 class="anchored" data-anchor-id="modeling-approach">Modeling Approach</h4>
+<p>A Random Forest Regressor is initialized with 100 estimators and a fixed random state for reproducibility. The model is trained to predict life expectancy based on the four features listed above. The core metric extracted is Feature Importance, which indicates the relative percentage contribution of each feature in predicting the target variable. The analysis is performed at two levels: 1. <strong>Regional Level</strong>: Aggregating all data for “Sub-Saharan Africa” and “South Asia”. 2. <strong>Country Level</strong>: Selecting the 3 countries with the lowest mean GDP and the 3 countries with the highest mean GDP within each region (provided they have at least 5 data points) to contrast developmental drivers.</p>
+</section>
+<section id="results-3" class="level4">
+<h4 class="anchored" data-anchor-id="results-3">Results</h4>
+<p>The Random Forest analysis produced feature importance scores for two aggregate regions and twelve individual countries. These scores quantify the relative power of GDP, Primary School Enrollment, Water Access, and Sanitation Access in predicting Life Expectancy at Birth.</p>
+<section id="regional-level-analysis" class="level5">
+<h5 class="anchored" data-anchor-id="regional-level-analysis">1. Regional Level Analysis</h5>
+<p>At the macro level, the two regions exhibit fundamentally different predictive profiles: * <strong>South Asia:</strong> The model identifies a singular, dominant driver: <strong>Basic Sanitation Access</strong>, which commands <strong>73.79%</strong> of the feature importance. This implies that at a regional scale, the variation in sanitation standards is the primary mathematical differentiator for life expectancy. GDP (13.29%) and Water Access (10.88%) play secondary roles, while Primary School Enrollment (2.04%) has negligible predictive power in this aggregate view. * <strong>Sub-Saharan Africa:</strong> This region displays a “balanced dependency” model. No single factor holds a monopoly on influence. <strong>Sanitation (33.18%)</strong> and <strong>Water Access (29.82%)</strong> are the strongest predictors, indicating that physical infrastructure is critical. However, <strong>GDP (23.03%)</strong> and <strong>School Enrollment (13.97%)</strong> contribute significantly, suggesting a complex environment where economic and social factors are inextricably linked to health outcomes.</p>
+<div id="cell-fig-regional" class="cell" data-execution_count="13">
+<div class="cell-output cell-output-display">
+<div id="fig-regional" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-regional-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="analysis_files/figure-html/fig-regional-output-1.png" width="944" height="464" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-regional-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Feature importance comparison between aggregated regions.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="country-level-sub-saharan-africa" class="level5">
+<h5 class="anchored" data-anchor-id="country-level-sub-saharan-africa">2. Country-Level: Sub-Saharan Africa</h5>
+<p>Separating countries by economic output reveals a progression in what determines health outcomes: * <strong>Low-GDP Cluster (Burundi, DRC, Ethiopia):</strong> * <strong>Burundi</strong> represents an extreme case of infrastructure dependency, where <strong>Water Access (79.36%)</strong> is effectively the sole predictor of life expectancy. * <strong>Ethiopia</strong> and the <strong>DRC</strong> show more distributed profiles, yet physical infrastructure remains paramount. In Ethiopia, Water (33.04%) and GDP (31.45%) are nearly tied as the top determinants. * <strong>High-GDP Cluster (Mauritius, Equatorial Guinea, Seychelles):</strong> * A distinct shift occurs in these wealthier nations. For <strong>Mauritius</strong> and <strong>Equatorial Guinea</strong>, <strong>Primary School Enrollment</strong> rises to become the number one predictor (33.43% and 33.96% respectively). * <strong>Seychelles</strong> remains heavily reliant on <strong>Water Access (38.29%)</strong>, but <strong>School Enrollment (26.21%)</strong> acts as a strong secondary driver, far exceeding its importance in lower-income neighbors.</p>
+<div id="cell-fig-ssa" class="cell" data-execution_count="14">
+<div class="cell-output cell-output-display">
+<div id="fig-ssa" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ssa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="analysis_files/figure-html/fig-ssa-output-1.png" width="945" height="464" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ssa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Feature importance for Sub-Saharan African countries, sorted by GDP.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="country-level-south-asia" class="level5">
+<h5 class="anchored" data-anchor-id="country-level-south-asia">3. Country-Level: South Asia</h5>
+<p>While the regional model pointed to Sanitation, the individual country models tell a different story of economic reliance. * <strong>The GDP-Water Nexus:</strong> For <strong>India, Bhutan, Nepal, and Sri Lanka</strong>, the models consistently prioritize <strong>GDP per Capita</strong> (ranging ~32-37%) and <strong>Water Access</strong> (~30-35%) as the top two features. * <strong>The Outliers (Maldives &amp; Bangladesh):</strong> * The <strong>Maldives</strong> deviates significantly from its neighbors. Here, <strong>GDP (7.28%)</strong> is the <em>least</em> important factor, while <strong>School Enrollment (35.38%)</strong> is the top driver, resembling the profile of a high-income island nation like Mauritius rather than India. * <strong>Bangladesh</strong> also shows a higher reliance on <strong>School Enrollment (24.24%)</strong> compared to the rest of the region (e.g., India at 4.87%).</p>
+<div id="cell-fig-sa" class="cell" data-execution_count="15">
+<div class="cell-output cell-output-display">
+<div id="fig-sa" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="analysis_files/figure-html/fig-sa-output-1.png" width="945" height="464" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Feature importance for South Asian countries, sorted by GDP.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="insights-and-discussion" class="level4">
+<h4 class="anchored" data-anchor-id="insights-and-discussion">Insights and Discussion</h4>
+<section id="the-hierarchy-of-health-needs" class="level5">
+<h5 class="anchored" data-anchor-id="the-hierarchy-of-health-needs">The Hierarchy of Health Needs</h5>
+<p>The results strongly support a “hierarchy of needs” theory in public health development. 1. <strong>Survival Phase:</strong> In low-income contexts like <strong>Burundi</strong>, the singular dominance of <strong>Water Access (79%)</strong> implies a bottleneck effect. Until a population has reliable access to clean water, improvements in education or marginal increases in GDP may fail to translate into significant longevity gains. 2. <strong>Economic Transition:</strong> As seen in <strong>India</strong> and <strong>Ethiopia</strong>, developing economies enter a phase where <strong>GDP</strong> and <strong>Infrastructure</strong> become co-dependent drivers. Life expectancy in this phase tracks closely with economic growth. 3. <strong>Social Development Phase:</strong> In wealthier nations like <strong>Mauritius</strong> and <strong>Equatorial Guinea</strong>, the model shifts weight to <strong>Education</strong>. This suggests that once basic biological survival needs (water/sanitation) are met, longevity is driven by the long-term benefits of education, such as health literacy and lifestyle choices.</p>
+</section>
+<section id="the-sanitation-anomaly-and-simpsons-paradox" class="level5">
+<h5 class="anchored" data-anchor-id="the-sanitation-anomaly-and-simpsons-paradox">The “Sanitation Anomaly” and Simpson’s Paradox</h5>
+<p>A critical insight is the massive discrepancy between the South Asia <em>Regional</em> model and the <em>Country</em> models. * <strong>Regional View:</strong> Sanitation explained <strong>73%</strong> of the variance. * <strong>Country View:</strong> Sanitation rarely exceeded <strong>24%</strong> importance.</p>
+<p>This is a classic case of Simpson’s Paradox or aggregation bias. It suggests that <strong>Sanitation Access</strong> is the primary variable distinguishing <em>between</em> South Asian countries (inter-country variance). However, <em>within</em> any given country, improvements in <strong>GDP</strong> and <strong>Water Access</strong> are the actual mechanisms driving life expectancy growth over time. Policy makers relying solely on the regional model might erroneously overemphasize sanitation interventions in specific contexts where economic support would be more effective.</p>
+</section>
+<section id="island-nations-vs.-continental-economies" class="level5">
+<h5 class="anchored" data-anchor-id="island-nations-vs.-continental-economies">Island Nations vs.&nbsp;Continental Economies</h5>
+<p>An interesting sub-pattern emerges among the island nations in the dataset (<strong>Mauritius, Seychelles, Maldives</strong>). Regardless of their region, these nations consistently show <strong>Primary School Enrollment</strong> as a top-tier predictor (26-35%). This may indicate that island economies, which often rely on service or tourism sectors rather than agriculture or heavy industry, have health outcomes that are more tightly coupled with the educational attainment of their workforce.</p>
+</section>
+</section>
+</section>
+</section>
+<section id="discussion-3" class="level2">
+<h2 class="anchored" data-anchor-id="discussion-3">Discussion</h2>
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
@@ -427,6 +640,9 @@ Gaffan, J., E. Adams, T. Cole, et al. 2023. <span>“Sanitation Access and Early
 </div>
 <div id="ref-hutton2017" class="csl-entry" role="listitem">
 Hutton, Guy, and Claire Chase. 2017. <span>“Water Supply, Sanitation, and Hygiene Interventions: Health and Economic Impacts.”</span> <em>International Journal of Environmental Research and Public Health</em> 14 (3): 225.
+</div>
+<div id="ref-leiss2021" class="csl-entry" role="listitem">
+Leiss, Damien, Vanessa Graupmann, Hans Gundermann, Karolina Wantel, and Melanie Zimkeit. 2021. <span>“Remote Schooling During the COVID-19 Pandemic: Exploring the Experience of Students and Parents.”</span> <em>Heliyon</em> 7: e07365. <a href="https://doi.org/10.1016/j.heliyon.2021.e07365">https://doi.org/10.1016/j.heliyon.2021.e07365</a>.
 </div>
 <div id="ref-pruss2019" class="csl-entry" role="listitem">
 Prüss-Ustün, Annette, Johanna Wolf, Jamie Bartram, et al. 2019. <span>“Burden of Disease from Inadequate Water, Sanitation and Hygiene for 2016.”</span> <em>International Journal of Hygiene and Environmental Health</em> 222 (5): 765–77.
