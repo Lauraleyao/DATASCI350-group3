@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Analysis</title>
+<title>QTM 350 Final Project Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="analysis_files/libs/clipboard/clipboard.min.js"></script>
@@ -76,7 +96,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Analysis</h1>
+<h1 class="title">QTM 350 Final Project Analysis</h1>
 </div>
 
 
@@ -93,17 +113,68 @@ window.Quarto = {
 </header>
 
 
-<section id="introduction" class="level1">
-<h1>Introduction</h1>
+<p><strong>Public Health Infrastructure, Human Capital, and Diverging Life Expectancy Trends in Sub-Saharan Africa and South Asia, 2000–2020</strong></p>
+<p>Anita Osuri (2557540)<br>
+Laura Wang (2550326)<br>
+Winnie Lau (2554252)<br>
+Caitlyn Ye (2555901)<br>
+Tashifa Noor (2588861)</p>
 <p>This is a Quarto document inside the DATASCI350-group3 repo.</p>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Over the last twenty years, Sub-Saharan Africa and South Asia have experienced substantial changes in sanitation, life expectancy, and economic conditions. The pace and consistency of these changes differ between the two regions. Our core question is: As Sub-Saharan Africa and South Asia underwent major development from 2000 to 2020, to what extent did improvements in public health infrastructure (water and sanitation) and human capital (primary education) correspond to their divergent paths in life expectancy?</p>
+<p>Sub-Saharan Africa lags in access to basic drinking water and sanitation, and multiple studies link this gap to slower progress in life expectancy. Access to basic sanitation substantially reduces early-life mortality risks <span class="citation" data-cites="gaffan2023">(<a href="#ref-gaffan2023" role="doc-biblioref">Gaffan et al. 2023</a>)</span>. Improved drinking water lowers exposure to diarrheal disease, one of the major contributors to preventable child mortality <span class="citation" data-cites="wolf2018">(<a href="#ref-wolf2018" role="doc-biblioref">Wolf et al. 2018</a>)</span>. Inadequate water, sanitation, and hygiene account for more than 800,000 global deaths per year <span class="citation" data-cites="pruss2019">(<a href="#ref-pruss2019" role="doc-biblioref">Prüss-Ustün et al. 2019</a>)</span>, underscoring the importance of WASH infrastructure in shaping survival. Expanding basic sanitation also yields large health and economic returns, especially in lower-income regions <span class="citation" data-cites="hutton2017">(<a href="#ref-hutton2017" role="doc-biblioref">Hutton and Chase 2017</a>)</span>.</p>
+<p>Primary school enrollment is associated with reduced child mortality due to greater health literacy and care-seeking behaviors <span class="citation" data-cites="amegbor2023">(<a href="#ref-amegbor2023" role="doc-biblioref">Amegbor and Addae 2023</a>)</span>. Education is one of the strongest social determinants of early-life survival <span class="citation" data-cites="cutler2010">(<a href="#ref-cutler2010" role="doc-biblioref">Cutler and Lleras-Muney 2010</a>)</span>. Rising GDP per capita supports these improvements by increasing government capacity to invest in essential infrastructure, health systems, and education <span class="citation" data-cites="raina2025">(<a href="#ref-raina2025" role="doc-biblioref">Raina and Dar 2025</a>)</span> <span class="citation" data-cites="bloom2014">(<a href="#ref-bloom2014" role="doc-biblioref">Bloom, Canning, and Fink 2014</a>)</span>. Improvements in early-life survival may also contribute to longer-term gains in life expectancy.</p>
+<p>Compared with Sub-Saharan Africa, South Asia has seen faster increases in water and sanitation access, more rapid economic growth, and rising primary enrollment. These shifts align with steeper improvements in life expectancy <span class="citation" data-cites="unicef2021">(<a href="#ref-unicef2021" role="doc-biblioref">UNICEF and WHO 2021</a>)</span> <span class="citation" data-cites="worldbank2023">(<a href="#ref-worldbank2023" role="doc-biblioref">Bank 2023</a>)</span>. We hypothesize that higher levels of basic drinking water access, basic sanitation coverage, primary school enrollment, and GDP per capita will be positively correlated with life expectancy, and that this association will be more pronounced in South Asia than in Sub-Saharan Africa.</p>
 </section>
-<section id="data-analysis-methodology" class="level1">
-<h1>Data Analysis / Methodology</h1>
-<section id="linear-regression" class="level2">
-<h2 class="anchored" data-anchor-id="linear-regression">Linear Regression</h2>
+<section id="data-description" class="level2">
+<h2 class="anchored" data-anchor-id="data-description">Data Description</h2>
+</section>
+<section id="data-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="data-analysis">Data Analysis</h2>
+<section id="variable-correlations-heatmap" class="level3">
+<h3 class="anchored" data-anchor-id="variable-correlations-heatmap">Variable Correlations: Heatmap</h3>
+<section id="methodology" class="level4">
+<h4 class="anchored" data-anchor-id="methodology">Methodology</h4>
+<p>To begin exploring the relationship between these variables, correlation matrices for the 5 variables of interest (life expectancy at birth, basic water access, basic sanitation access, primary school enrollment, and GDP per capita) in Sub-Saharan Africa and South Asia were calculated and visualized. Since the dataset includes longitudinal data, these variables were averaged at the country level to obtain a single representative value per country. The dataset was then subsetted by region to create two correlation matrices for region-level analysis. The Sub-Saharan Africa region contained 48 countries while South Asia contained 6 countries. Finally, heatmaps were created from the matrices to visualize the Pearson correlation coefficients and show how strongly each variable is associated with each other.</p>
+</section>
+<section id="results" class="level4">
+<h4 class="anchored" data-anchor-id="results">Results</h4>
+<p>As seen in <a href="#fig-heatmap" class="quarto-xref">Figure&nbsp;1</a>, in Sub-Saharan Africa, all five development indicators show positive correlations with one another. The correlations between life expectancy at birth and each of the 4 other variables range from weak to intermediate correlation strength. The correlation between life expectancy and primary school enrollment is lowest at 0.25, while the correlation with basic water access is highest at 0.53. In South Asia, there is greater variability in correlation between the variables, compared to Sub-Saharan Africa. Life expectancy is positively correlated with basic water access (0.33), basic sanitation access (0.95), and GDP per capita (0.89). Such strong correlation is not seen in Sub-Saharan Africa countries. However, primary school enrollment is negatively correlated with all 4 of the other variables, including a correlation of -0.38 with life expectancy.</p>
+<div id="cell-fig-heatmap" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display">
+<div id="fig-heatmap" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="analysis_files/figure-html/fig-heatmap-output-1.png" width="949" height="374" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Correlation Heatmaps for Sub-Saharan Africa and South Asia
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="discussion" class="level4">
+<h4 class="anchored" data-anchor-id="discussion">Discussion</h4>
+<p>The correlation patterns differ substantially between Sub-Saharan Africa and South Asia. Sub-Saharan Africa shows moderate and consistently positive associations among all variables, suggesting a relatively uniform pattern in how public health infrastructure, education, economic conditions, and life expectancy relate to one another in this region. In contrast, the South Asian correlations display greater variability, with a mix of strong and weak positive correlations as well as negative ones.</p>
+<p>These differences can be interpreted in the context of broader regional characteristics that shape how these indicators tend to co-occur. In Sub-Saharan Africa, where baseline access to clean water and sanitation is relatively low, countries with higher levels of these services also tend to have higher life expectancy, resulting in moderate positive correlations <span class="citation" data-cites="armah2018">(<a href="#ref-armah2018" role="doc-biblioref">Armah et al. 2018</a>)</span>. In South Asia, basic water access is generally higher and less variable, so it may not align as closely with differences in life expectancy. Instead, sanitation access shows a stronger association, consistent with the region’s historically severe sanitation-related disease burden <span class="citation" data-cites="unicef2022">(<a href="#ref-unicef2022" role="doc-biblioref">UNICEF 2022</a>)</span>. These contextual differences may help explain why the pattern of associations differs across the two regions.</p>
+<p>It is important to note that some of the more extreme or unexpected correlations, particularly in South Asia, may be influenced by the small number of countries in that regional sample. With only 6 observations, individual countries can exert a large influence on the correlation coefficients. In contrast, the Sub-Saharan Africa region includes 48 countries, offering a more stable basis for identifying general patterns. This difference in sample size may account for findings such as the negative correlation between primary school enrollment and life expectancy in South Asia, which is not observed in Sub-Saharan Africa. Overall, there appears to be correlation between these 5 variables, allowing for deeper analysis into how these indicators interact with one another.</p>
+</section>
+</section>
+<section id="linear-regression" class="level3">
+<h3 class="anchored" data-anchor-id="linear-regression">Linear Regression</h3>
+<section id="methodology-1" class="level4">
+<h4 class="anchored" data-anchor-id="methodology-1">Methodology</h4>
 <p>To help answer our question we ran three types of linear regression models to see how our predictor variables basic_water_access_pct, basic_sanitation_access_pct, primary_school_enrollment, and gdp_per_capita_constant_usd affected life_expectancy_birth.</p>
-<p>The first type of linear regression model we created was a regular OLS model, where region does not impact life expectancy, therefore treating our dataset as one group.</p>
-<div id="tbl-lmsimplest" class="cell quarto-float quarto-figure quarto-figure-center anchored" title="Linear Regression Model Output" data-execution_count="2">
+<p>The first type of model is a regular OLS model that does not highlight differences in region, rather treats both regions as one overall area that underwent many developments. Although this was helpful in seeing how our predictors generally affect the life_expectancy_birth, we knew we wanted a model that separated by region to take into account differences that may arise in the two regions.</p>
+<p>The second type of linear regression model we created was a parallel lines model, where each region would have its own line, with the same slope but a different intercept. We created a binary variable called Binary_subsaharan_africa where 1 indicates the country is in Sub-Saharan Africa and 0 (the baseline) indicates the country is in South Asia.</p>
+<p>The third type of linear regression model we created was an interaction model. This takes into account the differences between regions, not only in the intercept, but also the slope. This is the most flexible model which we initially thought was the best because it’s unlikely the two regions have the same slope. However, after running the regression, we decided not to use this for our analysis due to the insignificant p-values produced.</p>
+</section>
+<section id="results-1" class="level4">
+<h4 class="anchored" data-anchor-id="results-1">Results</h4>
+<div id="tbl-lmsimplest" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="3" title="Linear Regression Model Output">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-lmsimplest-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;1: Summary of linear regression where region is not a variable
@@ -115,8 +186,8 @@ Table&nbsp;1: Summary of linear regression where region is not a variable
 Dep. Variable:     life_expectancy_birth   R-squared:                       0.469
 Model:                               OLS   Adj. R-squared:                  0.466
 Method:                    Least Squares   F-statistic:                     195.1
-Date:                   Mon, 01 Dec 2025   Prob (F-statistic):          6.38e-120
-Time:                           23:12:31   Log-Likelihood:                -2786.4
+Date:                   Thu, 04 Dec 2025   Prob (F-statistic):          6.38e-120
+Time:                           23:30:39   Log-Likelihood:                -2786.4
 No. Observations:                    890   AIC:                             5583.
 Df Residuals:                        885   BIC:                             5607.
 Df Model:                              4                                         
@@ -163,8 +234,7 @@ strong multicollinearity or other numerical problems.</code></pre>
 \]</span></p>
 <p>These coefficients mean: for a one-unit (one percentage-point) increase in basic_water_access_pct, life_expectancy_birth increases by 0.1453 years, holding other predictors constant. A one-percentage-point increase in basic_sanitation_access_pct is associated with a 0.1111-year increase, and a one-percentage-point increase in primary_school_enrollment is associated with a 0.0300-year increase. The gdp_per_capita_constant_usd coefficient (−8.95×10⁻⁶) means an additional $1 in GDP per capita is associated with a −8.95×10⁻⁶-year change in life expectancy. The intercept 43.4413 is the predicted life expectancy when all predictors equal zero.</p>
 <p>The regression output showed an F-statistic of 195.1 with a p-value 6.38e-120 (less than our threshold of 0.05), meaning that at least one of our predictors has a significant relationship with life expectancy. Additionally, all the p-values of the coefficients, except for gdp_per_capita_constant_usd were less than 0.05, meaning that we cannot reject the null hypothesis that these variables have no effect on life expectancy. The R-squared value is low at 0.469 meaning that approximately 46.9% of the variance in life expectancy can be explained by the predictors in our model. However, we know there are numerous factors that can affect life expectancy. We wanted to specifically see how improvements in public health infrastructure affected it to answer our question, and also added GDP, as we knew that would be a very obvious confounding variable.</p>
-<p>The second type of linear regression model we created was a parallel lines model, where each region would have its own line, with the same slope but a different intercept. It was important to have a model that separates by region to take into account differences that may arise in the two regions. We created a binary variable called Binary_subsaharan_africa where 1 indicates the country is in Sub-Saharan Africa and 0 (the baseline) indicates the country is in South Asia.</p>
-<div id="tbl-lmparallel" class="cell quarto-float quarto-figure quarto-figure-center anchored" title="Parallel Lines Model Output" data-execution_count="3">
+<div id="tbl-lmparallel" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="4" title="Parallel Lines Model Output">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-lmparallel-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;2: Summary of parallel lines model
@@ -176,8 +246,8 @@ Table&nbsp;2: Summary of parallel lines model
 Dep. Variable:     life_expectancy_birth   R-squared:                       0.515
 Model:                               OLS   Adj. R-squared:                  0.513
 Method:                    Least Squares   F-statistic:                     188.0
-Date:                   Mon, 01 Dec 2025   Prob (F-statistic):          2.31e-136
-Time:                           23:12:31   Log-Likelihood:                -2745.5
+Date:                   Thu, 04 Dec 2025   Prob (F-statistic):          2.31e-136
+Time:                           23:30:39   Log-Likelihood:                -2745.5
 No. Observations:                    890   AIC:                             5503.
 Df Residuals:                        884   BIC:                             5532.
 Df Model:                              5                                         
@@ -225,7 +295,7 @@ strong multicollinearity or other numerical problems.</code></pre>
 \]</span></p>
 <p>These equations show that holding the predictor variables constant between the two regions, Sub-Saharan Africa’s residents have a life expectancy 6.0865 years shorter than South Asia.</p>
 <p>The F-statistic of the regression is 188.0 with a p-value of 2.31e-136. This p-value, since it is less than 0.05, tells us that at least one of the predictors we used has a significant relationship with life expectancy. For the individual coefficients, all p-values are significant which means we cannot reject the null hypothesis that these variables have no relationship on life expectancy. The R-squared is 0.515, which is still quite low, but as mentioned previously, we didn’t necessarily want to create a model with all potential predictors of life expectancy, as that isn’t our research question.</p>
-<div id="cell-fig-parallelwatervslifeexp" class="cell" data-execution_count="4">
+<div id="cell-fig-parallelwatervslifeexp" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div id="fig-parallelwatervslifeexp" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -233,13 +303,13 @@ strong multicollinearity or other numerical problems.</code></pre>
 <img src="analysis_files/figure-html/fig-parallelwatervslifeexp-output-1.png" width="585" height="449" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-parallelwatervslifeexp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Water Access: Predicted vs Actual (Parallel Lines Model)
+Figure&nbsp;2: Water Access: Predicted vs Actual (Parallel Lines Model)
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<div id="cell-fig-parallelsanitationvslifeexp" class="cell" data-execution_count="5">
+<div id="cell-fig-parallelsanitationvslifeexp" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div id="fig-parallelsanitationvslifeexp" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -247,13 +317,13 @@ Figure&nbsp;1: Water Access: Predicted vs Actual (Parallel Lines Model)
 <img src="analysis_files/figure-html/fig-parallelsanitationvslifeexp-output-1.png" width="585" height="449" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-parallelsanitationvslifeexp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Sanitation Access: Predicted vs Actual (Parallel Lines Model)
+Figure&nbsp;3: Sanitation Access: Predicted vs Actual (Parallel Lines Model)
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<div id="cell-fig-parallelschoolvslifeexp" class="cell" data-execution_count="6">
+<div id="cell-fig-parallelschoolvslifeexp" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div id="fig-parallelschoolvslifeexp" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -261,15 +331,14 @@ Figure&nbsp;2: Sanitation Access: Predicted vs Actual (Parallel Lines Model)
 <img src="analysis_files/figure-html/fig-parallelschoolvslifeexp-output-1.png" width="597" height="449" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-parallelschoolvslifeexp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: Primary School Enrollment: Predicted vs Actual (Parallel Lines Model)
+Figure&nbsp;4: Primary School Enrollment: Predicted vs Actual (Parallel Lines Model)
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>These plots show our predicted vs.&nbsp;actual for the three predictor variables of interest. We did not include GDP because it was a confounding variable we included in our regression, but not the main point of our research question. South Asia’s dots in <a href="#fig-parallelwatervslifeexp" class="quarto-xref">Figure&nbsp;1</a> show that there are much higher levels of water access compared to Sub-Saharan Africa. We observe in <a href="#fig-parallelsanitationvslifeexp" class="quarto-xref">Figure&nbsp;2</a> that South Asia’s dots are closely clustered together, while for Sub-Saharan Africa, they are much more widely dispersed- for example a Sanitation Access of 40% may mean a life expectancy anywhere between 45 and 70 years in Sub-Saharan Africa, but in South Asia, a Sanitation Access of 40% means a life expectancy of ~67 years. We can see in <a href="#fig-parallelschoolvslifeexp" class="quarto-xref">Figure&nbsp;3</a> that the blue dots for South Asia are above the red dots for Sub-Saharan Africa, and this is reflected in our model. Sub-Saharan Africa also has a wider range of primary school enrollment compared to South Asia.</p>
-<p>The third type of linear regression model we created was an interaction model. This takes into account the differences between regions, not only in the intercept, but also the slope. This is the most flexible model.</p>
-<div id="tbl-lminteraction" class="cell quarto-float quarto-figure quarto-figure-center anchored" title="Interaction Model Output" data-execution_count="7">
+<p>These plots show our predicted vs.&nbsp;actual for the three predictor variables of interest. We did not include GDP because it was a confounding variable we included in our regression, but not the main point of our research question. South Asia’s dots in <a href="#fig-parallelwatervslifeexp" class="quarto-xref">Figure&nbsp;2</a> show that there are much higher levels of water access compared to Sub-Saharan Africa. We observe in <a href="#fig-parallelsanitationvslifeexp" class="quarto-xref">Figure&nbsp;3</a> that South Asia’s dots are closely clustered together, while for Sub-Saharan Africa, they are much more widely dispersed- for example a Sanitation Access of 40% may mean a life expectancy anywhere between 45 and 70 years in Sub-Saharan Africa, but in South Asia, a Sanitation Access of 40% means a life expectancy of ~67 years. We can see in <a href="#fig-parallelschoolvslifeexp" class="quarto-xref">Figure&nbsp;4</a> that the blue dots for South Asia are above the red dots for Sub-Saharan Africa, and this is reflected in our model. Sub-Saharan Africa also has a wider range of primary school enrollment compared to South Asia.</p>
+<div id="tbl-lminteraction" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="8" title="Interaction Model Output">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-lminteraction-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;3: Summary of interaction model
@@ -281,8 +350,8 @@ Table&nbsp;3: Summary of interaction model
 Dep. Variable:     life_expectancy_birth   R-squared:                       0.522
 Model:                               OLS   Adj. R-squared:                  0.517
 Method:                    Least Squares   F-statistic:                     106.9
-Date:                   Mon, 01 Dec 2025   Prob (F-statistic):          1.10e-134
-Time:                           23:12:31   Log-Likelihood:                -2739.1
+Date:                   Thu, 04 Dec 2025   Prob (F-statistic):          1.10e-134
+Time:                           23:30:40   Log-Likelihood:                -2739.1
 No. Observations:                    890   AIC:                             5498.
 Df Residuals:                        880   BIC:                             5546.
 Df Model:                              9                                         
@@ -317,9 +386,64 @@ strong multicollinearity or other numerical problems.</code></pre>
 </div>
 <p>However, for the individual coefficients, there are more p-values greater than 0.05 compared to the linear regression which doesn’t specify region. This means for the variables where p-value &gt; 0.05, we cannot reject the null hypothesis that the variable has no effect on life expectancy. Many of these terms are the interaction coefficients, which may mean that an interaction term is not useful in creating better predictions. Hence, we decided not to use this model in our analysis.</p>
 </section>
+<section id="discussion-1" class="level4">
+<h4 class="anchored" data-anchor-id="discussion-1">Discussion</h4>
+<p>The linear regression results consistently point to positive associations between access to basic water and sanitation and life expectancy, with smaller positive associations for primary school enrollment and little-to-no independent effect from GDP per capita.</p>
+<p>The persistent regional intercept gap implies that even after accounting for measured water, sanitation, schooling, and GDP, Sub-Saharan African countries have lower life expectancy than South Asian countries by several years. This gap likely reflects other unmeasured factors (e.g., health system quality, conflict, disease burden, or historical differences) that are not captured by our limited set of covariates.</p>
+<p>It’s important to note that linear regression outputs rely on Gauss-Markov assumptions which we have not verified here. Additionally, water and sanitation are highly correlated with each other and with other development measures, which may cause multicollinearity and make coefficient interpretation less stable. Moreover, linear regression is a worse fit for data when there is less data to work with. Since South Asia has far less countires than Sub-Saharan Africa, results for South Asia may be more sensitive to outliers.</p>
+<p>Overall, the regression results show improvements in public health infrastructure (water and sanitation) are consistently associated with higher life expectancy across specifications. These associations are substantively meaningful: increasing basic water or sanitation access by 10 percentage points is associated with an increase in life expectancy around 1 year, holding other variables constant. Government focus on improving these public health metrics may be helpful in improving life expectancy.</p>
+</section>
+</section>
+</section>
+<section id="discussion-2" class="level2">
+<h2 class="anchored" data-anchor-id="discussion-2">Discussion</h2>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+</section>
+<section id="references" class="level2 unnumbered">
+
+
 </section>
 
-</main>
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-amegbor2023" class="csl-entry" role="listitem">
+Amegbor, Prudence M., and Ethel A. Addae. 2023. <span>“Socioeconomic Predictors of Child Mortality in Low- and Middle-Income Countries.”</span> <em>PLOS ONE</em>.
+</div>
+<div id="ref-armah2018" class="csl-entry" role="listitem">
+Armah, Frederick Ato, Bernard Ekumah, David Oscar Yawson, Justice O. Odoi, Abdul-Rahaman Afitiri, and Florence Esi Nyieku. 2018. <span>“Access to Improved Water and Sanitation in Sub-Saharan Africa in a Quarter Century.”</span> <em>Heliyon</em> 4 (11): e00931. https://doi.org/<a href="https://doi.org/10.1016/j.heliyon.2018.e00931">https://doi.org/10.1016/j.heliyon.2018.e00931</a>.
+</div>
+<div id="ref-worldbank2023" class="csl-entry" role="listitem">
+Bank, World. 2023. <span>“World Development Indicators: Life Expectancy, WASH Access, and GDP Per Capita.”</span> World Bank Group. <a href="https://data.worldbank.org">https://data.worldbank.org</a>.
+</div>
+<div id="ref-bloom2014" class="csl-entry" role="listitem">
+Bloom, David E., David Canning, and Günther Fink. 2014. <span>“Economic Development and Life Expectancy.”</span> <em>Health Affairs</em> 33 (3): 394–400.
+</div>
+<div id="ref-cutler2010" class="csl-entry" role="listitem">
+Cutler, David, and Adriana Lleras-Muney. 2010. <span>“Understanding Differences in Education and Health: Mechanisms and Policies.”</span> <em>Handbook of Social Economics</em>, 1–45.
+</div>
+<div id="ref-gaffan2023" class="csl-entry" role="listitem">
+Gaffan, J., E. Adams, T. Cole, et al. 2023. <span>“Sanitation Access and Early-Life Mortality: Global Evidence from Household Surveys.”</span> <em>Global Health Research</em>.
+</div>
+<div id="ref-hutton2017" class="csl-entry" role="listitem">
+Hutton, Guy, and Claire Chase. 2017. <span>“Water Supply, Sanitation, and Hygiene Interventions: Health and Economic Impacts.”</span> <em>International Journal of Environmental Research and Public Health</em> 14 (3): 225.
+</div>
+<div id="ref-pruss2019" class="csl-entry" role="listitem">
+Prüss-Ustün, Annette, Johanna Wolf, Jamie Bartram, et al. 2019. <span>“Burden of Disease from Inadequate Water, Sanitation and Hygiene for 2016.”</span> <em>International Journal of Hygiene and Environmental Health</em> 222 (5): 765–77.
+</div>
+<div id="ref-raina2025" class="csl-entry" role="listitem">
+Raina, S., and S. H. Dar. 2025. <span>“Economic Growth, Health Investment, and Mortality Decline in South Asia.”</span> <em>Journal of Asian Economics</em>.
+</div>
+<div id="ref-unicef2022" class="csl-entry" role="listitem">
+UNICEF. 2022. <span>“Water, Sanitation and Hygiene (WASH).”</span> UNICEF Regional Office for South Asia. <a href="https://www.unicef.org/rosa/water-sanitation-and-hygiene-wash">https://www.unicef.org/rosa/water-sanitation-and-hygiene-wash</a>.
+</div>
+<div id="ref-unicef2021" class="csl-entry" role="listitem">
+UNICEF, and WHO. 2021. <span>“Progress on Household Drinking Water, Sanitation and Hygiene 2000–2020.”</span> UNICEF; World Health Organization.
+</div>
+<div id="ref-wolf2018" class="csl-entry" role="listitem">
+Wolf, Johanna, Paul R. Hunter, Matthew C. Freeman, et al. 2018. <span>“Impact of Drinking Water and Sanitation on Global Health Outcomes: A Systematic Review and Meta-Analysis.”</span> <em>International Journal of Hygiene and Environmental Health</em> 219 (7): 715–28.
+</div>
+</div></section></div></main>
 <!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
