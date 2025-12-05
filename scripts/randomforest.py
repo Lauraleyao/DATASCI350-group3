@@ -2,6 +2,7 @@ import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
 from IPython.display import display
 import matplotlib.pyplot as plt
+import pandas as pd
 
 country_map = {
     'BDI': 'Burundi', 'COD': 'Democratic Republic of the Congo', 'ETH': 'Ethiopia',
@@ -51,29 +52,19 @@ for name, data_list in tables.items():
     print(f"\nTable: {name}")
     display(pd.DataFrame(data_list).rename(columns=col_rename).map(lambda x: f"{x:.2f}%"))
 
-
-# Comparison Visualization Function
 def plot_comparisons(tables_dict):
-    # Set up a grid of plots (1 row, 3 columns)
-    fig, axes = plt.subplots(3, 1, figsize=(10, 15))
-    
-    # List of datasets and titles from your 'tables' dictionary
     plot_data = [
         (tables_dict['Regions'], "Regional Influence on Life Expectancy"),
         (tables_dict['Sub-Saharan Africa'], "Sub-Saharan Africa: Country Comparison (Highest to Lowest GDP)"),
         (tables_dict['South Asia'], "South Asia: Country Comparison (Highest to Lowest GDP)")
     ]
     
-    for ax, (data_list, title) in zip(axes, plot_data):
+    for data_list, title in plot_data:
         if not data_list: continue
         
-        # specific cleaning for plot: convert list to df and rename
-        df = pd.DataFrame(data_list).rename(columns=col_rename)
+        fig, ax = plt.subplots(figsize=(10, 5))
         
-        # Plot Stacked Bar Chart
-        # 'barh' plots the first item (Index 0) at the BOTTOM and the last item at the TOP.
-        # Since our lists are ordered [Lowest GDP -> Highest GDP], 
-        # this correctly places the Highest GDP country at the top.
+        df = pd.DataFrame(data_list).rename(columns=col_rename)
         df.plot(kind='barh', stacked=True, ax=ax, cmap='viridis', edgecolor='white')
         
         ax.set_title(title, fontsize=14, fontweight='bold')
@@ -81,8 +72,12 @@ def plot_comparisons(tables_dict):
         ax.legend(loc='lower right', title='Variables')
         ax.grid(axis='x', linestyle='--', alpha=0.5)
 
-    plt.tight_layout()
-    plt.show()
+        plt.tight_layout()
 
-# Run the visualization
+        filename = title.replace(":", "").replace(" ", "_") + ".png"
+        
+        plt.savefig(f"figures/{filename}")
+        print(f"Graph saved: figures/{filename}")
+        plt.show()
+
 plot_comparisons(tables)
