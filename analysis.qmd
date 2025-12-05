@@ -90,6 +90,20 @@ These differences can be interpreted in the context of broader regional characte
 
 It is important to note that some of the more extreme or unexpected correlations, particularly in South Asia, may be influenced by the small number of countries in that regional sample. With only 6 observations, individual countries can exert a large influence on the correlation coefficients. In contrast, the Sub-Saharan Africa region includes 48 countries, offering a more stable basis for identifying general patterns. This difference in sample size may account for findings such as the negative correlation between primary school enrollment and life expectancy in South Asia, which is not observed in Sub-Saharan Africa. Overall, there appears to be correlation between these 5 variables, allowing for deeper analysis into how these indicators interact with one another.
 
+### Variable Correlations: Scatterplots 
+#### Methodology
+This scatterplot analysis portrays the different development trajectories in South Asia and Sub-Saharan Africa between 2000 and 2020 using five indicators: GDP per capita in constant USD, life expectancy at birth, primary school enrollment, basic water access, and basic sanitation access. To compare regional performance, I aggregated yearly data to create trendlines for each region in order to depict long-run outcomes. To assess inequality within regions, I identified the top three and bottom three countries based on their most recent GDP per capita values and plotted all five indicators over time for these subsets. This shows separate visualizations for high-income and low-income countries within each region. All plots combine scatterpoints to show yearly observations and line trends to highlight the trajectories. Together, the regional plots and the top-bottom GDP plots for both Sub-Saharan Africa and South Asia portray not only how the two regions differ overall but also how inequality appears within each region.
+
+### Results 
+
+
+
+### Discussion
+The findings indicate that within the different socio-economic conditions of Sub-Saharan Africa and South Asia, South Asia is consistently developing faster than Sub-Saharan Africa for all measures; however, the nature of inequality between countries differs considerably. South Asia continues to have relatively low levels of internal disparity relative to the rate of improvement. Even within the region's lowest GDP countries, there are strong levels of life expectancy, education, and service access. Though they are the poorest countries in South Asia, their GDP still exceeds those of the poorest countries in Sub-Saharan Africa, which suggests that economic gains translate more evenly into human development. In contrast, Sub-Saharan Africa shows both lower overall values and deeper internal inequality. The gap between the richest and poorest Sub-Saharan African countries is larger than the differences observed between South Asia’s highest GDP and lowest GDP countries. The poorest states within Sub-Saharan Africa grapple with limited state capacity as an implication of their low GDP, leading to instability in health outcomes and slower progress in basic services [@leiss2021]. These results suggest that while both regions improve over time, structural and political barriers continue to hamper and unevenly influence development in Sub-Saharan Africa.
+
+Across both regions, South Asia’s development trajectory shows how improvements in health, education, and infrastructure can accompany economic growth and reduce internal disparities, while Sub-Saharan Africa’s performance demonstrates how instability and weak state institutions can hinder the translation of growth into broadly shared development gains. This suggests that effective policy interventions must not only target regional inequalities but focus especially on the structural constraints facing the lowest-performing states, where gains in stability and availability of critical services and resources could have the greatest long-term impact.
+
+
 
 ### Linear Regression
 
