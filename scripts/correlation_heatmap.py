@@ -39,4 +39,6 @@ sns.heatmap(corr_sa, annot=True, cmap="coolwarm", vmin=-1, vmax=1, mask=mask)
 plt.title("Correlation Matrix - South Asia")
 
 plt.tight_layout()
-plt.show()
+
+# save figure
+plt.savefig("figures/correlation_heatmap.png")
