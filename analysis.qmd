@@ -26,6 +26,42 @@ Compared with Sub-Saharan Africa, South Asia has seen faster increases in water 
 
 ## Data Description
 
+Data was obtained from the World Development Indicators using python package wbgapi. Fields “life_expectancy_birth”, “basic_water_access_pct”, “basic_sanitation_access_pct”, “primary_school_enrollment”, “gdp_per_capita_constant_usd” were extracted. Data was filtered for countries (under region sub-Saharan African and South Asia) and years (2000-2020). Summary stats (average, max, min) were computed for each field.
+
+Variables of Interest are the following. Summary statistics are taken overall for sub-Saharan African and South Asia together. 
+
+Life expectancy at birth, total (years)	[life_expectancy_birth]
+Max: 79.707000
+Min: 14.665000
+Average: 59.64814
+
+People using at least basic drinking water services (%) [basic_water_access_pct]
+Max: 99.995800
+Min: 18.682303
+Average: 64.875792
+
+People using at least basic sanitation services (%) [basic_sanitation_access_pct]
+Max:  100.000000
+Min: 2.793897
+Average: 35.625811
+
+School enrollment, primary (% gross) [primary_school_enrollment]
+Max: 156.614258
+Min: 22.785419
+Average: 99.296595
+
+GDP per capita (constant 2015 US$)	 [gdp_per_capita_constant_usd]
+Max: 19481.646105
+Min: 233.032393
+Average: 19481.646105
+
+To address this question, we are conducting the following analyses:
+1. Correlation analysis based on the three lowest-GDP and three highest-GDP countries in each region, using the selected variables of interest.
+2. Heat map for correlation matrices of variables of interest to start exploring initial relationships.
+3. Linear regression model to see how the variables affected life expectancy.
+4. Machine learning analysis to see how important the variables are in relation to life expectancy.
+
+
 ## Data Analysis
 
 ### Variable Correlations: Heatmap
@@ -732,5 +768,8 @@ An interesting sub-pattern emerges among the island nations in the dataset (**Ma
 ## Discussion
 
 ## Conclusion
+For our final project, we were curious to understand if, and how, infrastructural improvements and growth in human capital contributed to the distinct trajectories in life expectancy and fertility measurements of Sub-Saharan Africa and South Asia. To explore this question more, we conducted descriptive data analyses by, first, creating a heatmap to visualize the correlations between our 5 variables (life expectancy at birth, basic water access, basic sanitation access, primary school enrollment, and GDP per capita). 
+From the results, we observed that correlation patterns differ substantially between Sub-Saharan Africa and South Asia as South Asia exhibits more variability in how each variable correlates to each other, whereas in Sub-Saharan Africa the positive associations point toward a consistent pattern in how the variables relate. With further exploration, we created scatterplots for each region that mapped each variable over time, and also created country-level plots that mapped each variable for the top 3 and bottom 3 GDP-per-capita countries within each region. From these visualizations, we observed how, although both regions increased over time for all variables, South Asia typically started at higher baseline amounts and experienced greater growth over the time period 2000-2020. Significantly, we saw that sanitation access shows a significant difference as South Asia improves from roughly 40 to nearly 80 percent coverage, compared to Sub-Saharan Africa’s rise from about 25 to the high 30s. Within our country-level plots, we saw the relation between national income and the variables. While there exists a trend of higher income countries experiencing greater public health infrastructure and life expectancy, the gap is much greater in Sub-Saharan Africa than South Asia, as lower income countries in South Asia still start off at a higher baseline GDP-per-capita than those of the low income countries in Sub-Saharan Africa, indicating that while both regions improve over time, structural and political barriers continue to hamper and unevenly influence development in Sub-Saharan Africa.
+Then, we ran three types of linear regression models, a regular OLS model, a parallel lines model, and an interaction model. Across all models, the linear regressions demonstrated that increased access to basic drinking water and sanitation is strongly associated with higher life expectancy, even after controlling for primary school enrollment and GDP per capita. Primary school enrollment also displayed a smaller but positive relationship with life expectancy, while GDP per capita had little power once public health variables were included. Importantly, the parallel-lines model revealed a persistent regional gap: Sub-Saharan African countries have substantially lower predicted life expectancy than South Asian countries even when holding water, sanitation, schooling, and GDP constant. This suggests that structural or unmeasured factors, such as health system capacity, conflict, or population disease burden, continue to shape regional differences in survival outcomes. Although these results are correlational and subject to multicollinearity, they reinforce the broader finding that investments in basic public health infrastructure are among the most meaningful predictors of improved life expectancy over time.
 
 ## References

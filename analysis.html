@@ -164,6 +164,14 @@ Tashifa Noor (2588861)</p>
 </section>
 <section id="data-description" class="level2">
 <h2 class="anchored" data-anchor-id="data-description">Data Description</h2>
+<p>Data was obtained from the World Development Indicators using python package wbgapi. Fields “life_expectancy_birth”, “basic_water_access_pct”, “basic_sanitation_access_pct”, “primary_school_enrollment”, “gdp_per_capita_constant_usd” were extracted. Data was filtered for countries (under region sub-Saharan African and South Asia) and years (2000-2020). Summary stats (average, max, min) were computed for each field.</p>
+<p>Variables of Interest are the following. Summary statistics are taken overall for sub-Saharan African and South Asia together.</p>
+<p>Life expectancy at birth, total (years) [life_expectancy_birth] Max: 79.707000 Min: 14.665000 Average: 59.64814</p>
+<p>People using at least basic drinking water services (%) [basic_water_access_pct] Max: 99.995800 Min: 18.682303 Average: 64.875792</p>
+<p>People using at least basic sanitation services (%) [basic_sanitation_access_pct] Max: 100.000000 Min: 2.793897 Average: 35.625811</p>
+<p>School enrollment, primary (% gross) [primary_school_enrollment] Max: 156.614258 Min: 22.785419 Average: 99.296595</p>
+<p>GDP per capita (constant 2015 US$) [gdp_per_capita_constant_usd] Max: 19481.646105 Min: 233.032393 Average: 19481.646105</p>
+<p>To address this question, we are conducting the following analyses: 1. Correlation analysis based on the three lowest-GDP and three highest-GDP countries in each region, using the selected variables of interest. 2. Heat map for correlation matrices of variables of interest to start exploring initial relationships. 3. Linear regression model to see how the variables affected life expectancy. 4. Machine learning analysis to see how important the variables are in relation to life expectancy.</p>
 </section>
 <section id="data-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="data-analysis">Data Analysis</h2>
@@ -208,7 +216,7 @@ Figure&nbsp;1: Correlation Heatmaps for Sub-Saharan Africa and South Asia
 <section id="results-1" class="level3">
 <h3 class="anchored" data-anchor-id="results-1">Results</h3>
 <p>The regional comparison plots show how South Asia leads across all five development indicators. Life expectancy rises steadily in both regions, but South Asia maintains a wide lead throughout the period, increasing from roughly 65 to over 73 years. Sub-Saharan Africa improves from about 53 to 63 years, narrowing the gap slightly but not yet approaching South Asia’s levels. Primary school enrollment shows a different pattern as South Asia begins the period with very high enrollment rates, while Sub-Saharan Africa starts much lower but steadily climbs until the two regions come close to converging by 2020. GDP per capita diverges sharply between the regions, with South Asia nearly doubling from around 2,000 to almost 4,000 USD, while Sub-Saharan Africa grows more modestly from about 1,650 to 2,300 USD. Water access improves in both regions, yet South Asia begins at a high baseline and ends the period near universal basic access, while Sub-Saharan Africa lags behind. Sanitation access shows a significant difference as South Asia improves from roughly 40 to nearly 80 percent coverage, compared to Sub-Saharan Africa’s rise from about 25 to the high 30s.</p>
-<div id="c3eb1ffe" class="cell" data-execution_count="2">
+<div id="8a4d200d" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -219,7 +227,7 @@ Figure&nbsp;1: Correlation Heatmaps for Sub-Saharan Africa and South Asia
 </div>
 <p>The top and bottom GDP-per-capita groups within Sub-Saharan Africa demonstrate significant disparities between the top and bottom 3 GDP countries. High-income countries such as Seychelles, Mauritius, and Gabon reach GDP levels between 7,000 and 19,000 USD, maintain life expectancy above 70, and achieve broad access to water and sanitation. At the other end, the region’s lowest-income countries, Burundi, Central African Republic, and Madagascar experience unstable or declining life expectancy, water access that rarely exceeds 55 percent, and sanitation rates that often remain below 20 percent. Some countries experience dramatic dips in life expectancy, and their primary school enrollment remains far below the higher income nations within the region.</p>
 <p>South Asia’s top and bottom GDP-per-capita groups have a different pattern, characterized by moderate inequality rather than extremes. The highest GDP countries Maldives, Sri Lanka, and Bhutan, show strong gains in income, life expectancy, and service access. However, unlike Sub-Saharan Africa, the lowest-GDP South Asian countries, Bangladesh, Nepal, and India, still perform relatively well on human development dimensions. Life expectancy differences between the top and bottom groups are narrower, typically just 5 to 8 years. Water access is high across both groups, and while sanitation access varies more significantly, even the lower-income countries demonstrate consistent upward progress. Primary school enrollment rates also show gradual convergence, indicating that South Asia’s internal disparities do not reach the severe levels observed in Sub-Saharan Africa’s poorest countries.</p>
-<div id="8305f3e0" class="cell" data-execution_count="3">
+<div id="433747fc" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Top 3 and Bottom 3 Countries by GDP per Capita in Sub-Saharan Africa</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>ssa <span class="op">=</span> data[data[<span class="st">'Region'</span>].isin([<span class="st">'Sub-Saharan Africa'</span>])]</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -300,7 +308,7 @@ Bottom 3 Countries by GDP per Region:
 </section>
 <section id="results-2" class="level4">
 <h4 class="anchored" data-anchor-id="results-2">Results</h4>
-<div id="tbl-lmsimplest" class="cell quarto-float quarto-figure quarto-figure-center anchored" title="Linear Regression Model Output" data-execution_count="5">
+<div id="tbl-lmsimplest" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="5" title="Linear Regression Model Output">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-lmsimplest-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;1: Summary of linear regression where region is not a variable
@@ -313,7 +321,7 @@ Dep. Variable:     life_expectancy_birth   R-squared:                       0.46
 Model:                               OLS   Adj. R-squared:                  0.466
 Method:                    Least Squares   F-statistic:                     195.1
 Date:                   Mon, 08 Dec 2025   Prob (F-statistic):          6.38e-120
-Time:                           10:46:30   Log-Likelihood:                -2786.4
+Time:                           10:51:44   Log-Likelihood:                -2786.4
 No. Observations:                    890   AIC:                             5583.
 Df Residuals:                        885   BIC:                             5607.
 Df Model:                              4                                         
@@ -360,7 +368,7 @@ strong multicollinearity or other numerical problems.</code></pre>
 \]</span></p>
 <p>These coefficients mean: for a one-unit (one percentage-point) increase in basic_water_access_pct, life_expectancy_birth increases by 0.1453 years, holding other predictors constant. A one-percentage-point increase in basic_sanitation_access_pct is associated with a 0.1111-year increase, and a one-percentage-point increase in primary_school_enrollment is associated with a 0.0300-year increase. The gdp_per_capita_constant_usd coefficient (−8.95×10⁻⁶) means an additional $1 in GDP per capita is associated with a −8.95×10⁻⁶-year change in life expectancy. The intercept 43.4413 is the predicted life expectancy when all predictors equal zero.</p>
 <p>The regression output showed an F-statistic of 195.1 with a p-value 6.38e-120 (less than our threshold of 0.05), meaning that at least one of our predictors has a significant relationship with life expectancy. Additionally, all the p-values of the coefficients, except for gdp_per_capita_constant_usd were less than 0.05, meaning that we cannot reject the null hypothesis that these variables have no effect on life expectancy. The R-squared value is low at 0.469 meaning that approximately 46.9% of the variance in life expectancy can be explained by the predictors in our model. However, we know there are numerous factors that can affect life expectancy. We wanted to specifically see how improvements in public health infrastructure affected it to answer our question, and also added GDP, as we knew that would be a very obvious confounding variable.</p>
-<div id="tbl-lmparallel" class="cell quarto-float quarto-figure quarto-figure-center anchored" title="Parallel Lines Model Output" data-execution_count="6">
+<div id="tbl-lmparallel" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="6" title="Parallel Lines Model Output">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-lmparallel-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;2: Summary of parallel lines model
@@ -373,7 +381,7 @@ Dep. Variable:     life_expectancy_birth   R-squared:                       0.51
 Model:                               OLS   Adj. R-squared:                  0.513
 Method:                    Least Squares   F-statistic:                     188.0
 Date:                   Mon, 08 Dec 2025   Prob (F-statistic):          2.31e-136
-Time:                           10:46:30   Log-Likelihood:                -2745.5
+Time:                           10:51:44   Log-Likelihood:                -2745.5
 No. Observations:                    890   AIC:                             5503.
 Df Residuals:                        884   BIC:                             5532.
 Df Model:                              5                                         
@@ -464,7 +472,7 @@ Figure&nbsp;4: Primary School Enrollment: Predicted vs Actual (Parallel Lines Mo
 </div>
 </div>
 <p>These plots show our predicted vs.&nbsp;actual for the three predictor variables of interest. We did not include GDP because it was a confounding variable we included in our regression, but not the main point of our research question. South Asia’s dots in <a href="#fig-parallelwatervslifeexp" class="quarto-xref">Figure&nbsp;2</a> show that there are much higher levels of water access compared to Sub-Saharan Africa. We observe in <a href="#fig-parallelsanitationvslifeexp" class="quarto-xref">Figure&nbsp;3</a> that South Asia’s dots are closely clustered together, while for Sub-Saharan Africa, they are much more widely dispersed- for example a Sanitation Access of 40% may mean a life expectancy anywhere between 45 and 70 years in Sub-Saharan Africa, but in South Asia, a Sanitation Access of 40% means a life expectancy of ~67 years. We can see in <a href="#fig-parallelschoolvslifeexp" class="quarto-xref">Figure&nbsp;4</a> that the blue dots for South Asia are above the red dots for Sub-Saharan Africa, and this is reflected in our model. Sub-Saharan Africa also has a wider range of primary school enrollment compared to South Asia.</p>
-<div id="tbl-lminteraction" class="cell quarto-float quarto-figure quarto-figure-center anchored" title="Interaction Model Output" data-execution_count="10">
+<div id="tbl-lminteraction" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="10" title="Interaction Model Output">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-lminteraction-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;3: Summary of interaction model
@@ -477,7 +485,7 @@ Dep. Variable:     life_expectancy_birth   R-squared:                       0.52
 Model:                               OLS   Adj. R-squared:                  0.517
 Method:                    Least Squares   F-statistic:                     106.9
 Date:                   Mon, 08 Dec 2025   Prob (F-statistic):          1.10e-134
-Time:                           10:46:31   Log-Likelihood:                -2739.1
+Time:                           10:51:44   Log-Likelihood:                -2739.1
 No. Observations:                    890   AIC:                             5498.
 Df Residuals:                        880   BIC:                             5546.
 Df Model:                              9                                         
@@ -650,6 +658,7 @@ Figure&nbsp;7: Feature importance for South Asian countries, sorted by GDP.
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>For our final project, we were curious to understand if, and how, infrastructural improvements and growth in human capital contributed to the distinct trajectories in life expectancy and fertility measurements of Sub-Saharan Africa and South Asia. To explore this question more, we conducted descriptive data analyses by, first, creating a heatmap to visualize the correlations between our 5 variables (life expectancy at birth, basic water access, basic sanitation access, primary school enrollment, and GDP per capita). From the results, we observed that correlation patterns differ substantially between Sub-Saharan Africa and South Asia as South Asia exhibits more variability in how each variable correlates to each other, whereas in Sub-Saharan Africa the positive associations point toward a consistent pattern in how the variables relate. With further exploration, we created scatterplots for each region that mapped each variable over time, and also created country-level plots that mapped each variable for the top 3 and bottom 3 GDP-per-capita countries within each region. From these visualizations, we observed how, although both regions increased over time for all variables, South Asia typically started at higher baseline amounts and experienced greater growth over the time period 2000-2020. Significantly, we saw that sanitation access shows a significant difference as South Asia improves from roughly 40 to nearly 80 percent coverage, compared to Sub-Saharan Africa’s rise from about 25 to the high 30s. Within our country-level plots, we saw the relation between national income and the variables. While there exists a trend of higher income countries experiencing greater public health infrastructure and life expectancy, the gap is much greater in Sub-Saharan Africa than South Asia, as lower income countries in South Asia still start off at a higher baseline GDP-per-capita than those of the low income countries in Sub-Saharan Africa, indicating that while both regions improve over time, structural and political barriers continue to hamper and unevenly influence development in Sub-Saharan Africa. Then, we ran three types of linear regression models, a regular OLS model, a parallel lines model, and an interaction model. Across all models, the linear regressions demonstrated that increased access to basic drinking water and sanitation is strongly associated with higher life expectancy, even after controlling for primary school enrollment and GDP per capita. Primary school enrollment also displayed a smaller but positive relationship with life expectancy, while GDP per capita had little power once public health variables were included. Importantly, the parallel-lines model revealed a persistent regional gap: Sub-Saharan African countries have substantially lower predicted life expectancy than South Asian countries even when holding water, sanitation, schooling, and GDP constant. This suggests that structural or unmeasured factors, such as health system capacity, conflict, or population disease burden, continue to shape regional differences in survival outcomes. Although these results are correlational and subject to multicollinearity, they reinforce the broader finding that investments in basic public health infrastructure are among the most meaningful predictors of improved life expectancy over time.</p>
 </section>
 <section id="references" class="level2 unnumbered">
 
