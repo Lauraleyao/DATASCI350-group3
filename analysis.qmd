@@ -26,6 +26,61 @@ Compared with Sub-Saharan Africa, South Asia has seen faster increases in water 
 
 ## Data Description
 
+Data was obtained from the World Development Indicators using python package wbgapi. Fields “life_expectancy_birth”, “basic_water_access_pct”, “basic_sanitation_access_pct”, “primary_school_enrollment”, “gdp_per_capita_constant_usd” were extracted. Data was filtered for countries (under region sub-Saharan African and South Asia) and years (2000-2020). Summary stats (average, max, min) were computed for each field.
+
+Variables of Interest are the following. Summary statistics are taken overall for sub-Saharan African and South Asia together. 
+
+Life expectancy at birth, total (years)	[life_expectancy_birth]
+
+- Max: 79.707000
+
+- Min: 14.665000
+
+- Average: 59.64814
+
+People using at least basic drinking water services (%) [basic_water_access_pct]
+
+- Max: 99.995800
+
+- Min: 18.682303
+
+- Average: 64.875792
+
+People using at least basic sanitation services (%) [basic_sanitation_access_pct]
+
+- Max:  100.000000
+
+- Min: 2.793897
+
+- Average: 35.625811
+
+School enrollment, primary (% gross) [primary_school_enrollment]
+
+- Max: 156.614258
+
+- Min: 22.785419
+
+- Average: 99.296595
+
+GDP per capita (constant 2015 US$)	 [gdp_per_capita_constant_usd]
+
+- Max: 19481.646105
+
+- Min: 233.032393
+
+- Average: 19481.646105
+
+
+To address this question, we are conducting the following analyses:
+
+- Correlation analysis based on the three lowest-GDP and three highest-GDP countries in each region, using the selected variables of interest.
+
+- Heat map for correlation matrices of variables of interest to start exploring initial relationships.
+
+- Linear regression model to see how the variables affected life expectancy.
+
+- Machine learning analysis to see how important the variables are in relation to life expectancy.
+
 ## Data Analysis
 
 ### Variable Correlations: Heatmap
@@ -640,7 +695,9 @@ for region in ['Sub-Saharan Africa', 'South Asia']:
 
 A Random Forest Regressor is initialized with 100 estimators and a fixed random state for reproducibility. The model is trained to predict life expectancy based on the four features listed above.
 The core metric extracted is Feature Importance, which indicates the relative percentage contribution of each feature in predicting the target variable. The analysis is performed at two levels:
+
 1. **Regional Level**: Aggregating all data for "Sub-Saharan Africa" and "South Asia".
+
 2. **Country Level**: Selecting the 3 countries with the lowest mean GDP and the 3 countries with the highest mean GDP within each region (provided they have at least 5 data points) to contrast developmental drivers.
 
 #### Results
@@ -649,8 +706,10 @@ The Random Forest analysis produced feature importance scores for two aggregate 
 
 ##### 1. Regional Level Analysis
 At the macro level, the two regions exhibit fundamentally different predictive profiles:
-* **South Asia:** The model identifies a singular, dominant driver: **Basic Sanitation Access**, which commands **73.79%** of the feature importance. This implies that at a regional scale, the variation in sanitation standards is the primary mathematical differentiator for life expectancy. GDP (13.29%) and Water Access (10.88%) play secondary roles, while Primary School Enrollment (2.04%) has negligible predictive power in this aggregate view.
-* **Sub-Saharan Africa:** This region displays a "balanced dependency" model. No single factor holds a monopoly on influence. **Sanitation (33.18%)** and **Water Access (29.82%)** are the strongest predictors, indicating that physical infrastructure is critical. However, **GDP (23.03%)** and **School Enrollment (13.97%)** contribute significantly, suggesting a complex environment where economic and social factors are inextricably linked to health outcomes.
+
+- **South Asia:** The model identifies a singular, dominant driver: **Basic Sanitation Access**, which commands **73.79%** of the feature importance. This implies that at a regional scale, the variation in sanitation standards is the primary mathematical differentiator for life expectancy. GDP (13.29%) and Water Access (10.88%) play secondary roles, while Primary School Enrollment (2.04%) has negligible predictive power in this aggregate view.
+
+- **Sub-Saharan Africa:** This region displays a "balanced dependency" model. No single factor holds a monopoly on influence. **Sanitation (33.18%)** and **Water Access (29.82%)** are the strongest predictors, indicating that physical infrastructure is critical. However, **GDP (23.03%)** and **School Enrollment (13.97%)** contribute significantly, suggesting a complex environment where economic and social factors are inextricably linked to health outcomes.
 
 ```{python}
 #| label: fig-regional
@@ -662,10 +721,12 @@ create_single_plot(tables['Regions'], "Regional Influence on Life Expectancy")
 
 ##### 2. Country-Level: Sub-Saharan Africa
 Separating countries by economic output reveals a progression in what determines health outcomes:
-* **Low-GDP Cluster (Burundi, DRC, Ethiopia):**
+
+- **Low-GDP Cluster (Burundi, DRC, Ethiopia):**
     * **Burundi** represents an extreme case of infrastructure dependency, where **Water Access (79.36%)** is effectively the sole predictor of life expectancy.
     * **Ethiopia** and the **DRC** show more distributed profiles, yet physical infrastructure remains paramount. In Ethiopia, Water (33.04%) and GDP (31.45%) are nearly tied as the top determinants.
-* **High-GDP Cluster (Mauritius, Equatorial Guinea, Seychelles):**
+
+- **High-GDP Cluster (Mauritius, Equatorial Guinea, Seychelles):**
     * A distinct shift occurs in these wealthier nations. For **Mauritius** and **Equatorial Guinea**, **Primary School Enrollment** rises to become the number one predictor (33.43% and 33.96% respectively).
     * **Seychelles** remains heavily reliant on **Water Access (38.29%)**, but **School Enrollment (26.21%)** acts as a strong secondary driver, far exceeding its importance in lower-income neighbors.
 
@@ -679,10 +740,13 @@ create_single_plot(tables['Sub-Saharan Africa'], "Sub-Saharan Africa: Country Co
 
 ##### 3. Country-Level: South Asia
 While the regional model pointed to Sanitation, the individual country models tell a different story of economic reliance.
-* **The GDP-Water Nexus:** For **India, Bhutan, Nepal, and Sri Lanka**, the models consistently prioritize **GDP per Capita** (ranging ~32-37%) and **Water Access** (~30-35%) as the top two features.
-* **The Outliers (Maldives & Bangladesh):**
-    * The **Maldives** deviates significantly from its neighbors. Here, **GDP (7.28%)** is the *least* important factor, while **School Enrollment (35.38%)** is the top driver, resembling the profile of a high-income island nation like Mauritius rather than India.
-    * **Bangladesh** also shows a higher reliance on **School Enrollment (24.24%)** compared to the rest of the region (e.g., India at 4.87%).
+
+- **The GDP-Water Nexus:** For **India, Bhutan, Nepal, and Sri Lanka**, the models consistently prioritize **GDP per Capita** (ranging ~32-37%) and **Water Access** (~30-35%) as the top two features.
+
+- **The Outliers (Maldives & Bangladesh):**
+    - The **Maldives** deviates significantly from its neighbors. Here, **GDP (7.28%)** is the *least* important factor, while **School Enrollment (35.38%)** is the top driver, resembling the profile of a high-income island nation like Mauritius rather than India.
+
+    - **Bangladesh** also shows a higher reliance on **School Enrollment (24.24%)** compared to the rest of the region (e.g., India at 4.87%).
 
 ```{python}
 #| label: fig-sa
@@ -696,26 +760,33 @@ create_single_plot(tables['South Asia'], "South Asia: Country Comparison")
 #### Insights and Discussion
 
 ##### The Hierarchy of Health Needs
+
 The results strongly support a "hierarchy of needs" theory in public health development.
+
 1.  **Survival Phase:** In low-income contexts like **Burundi**, the singular dominance of **Water Access (79%)** implies a bottleneck effect. Until a population has reliable access to clean water, improvements in education or marginal increases in GDP may fail to translate into significant longevity gains.
+
 2.  **Economic Transition:** As seen in **India** and **Ethiopia**, developing economies enter a phase where **GDP** and **Infrastructure** become co-dependent drivers. Life expectancy in this phase tracks closely with economic growth.
+
 3.  **Social Development Phase:** In wealthier nations like **Mauritius** and **Equatorial Guinea**, the model shifts weight to **Education**. This suggests that once basic biological survival needs (water/sanitation) are met, longevity is driven by the long-term benefits of education, such as health literacy and lifestyle choices.
 
 ##### The "Sanitation Anomaly" and Simpson's Paradox
+
 A critical insight is the massive discrepancy between the South Asia *Regional* model and the *Country* models.
-* **Regional View:** Sanitation explained **73%** of the variance.
-* **Country View:** Sanitation rarely exceeded **24%** importance.
+
+- **Regional View:** Sanitation explained **73%** of the variance.
+
+- **Country View:** Sanitation rarely exceeded **24%** importance.
 
 This is a classic case of Simpson's Paradox or aggregation bias. It suggests that **Sanitation Access** is the primary variable distinguishing *between* South Asian countries (inter-country variance). However, *within* any given country, improvements in **GDP** and **Water Access** are the actual mechanisms driving life expectancy growth over time. Policy makers relying solely on the regional model might erroneously overemphasize sanitation interventions in specific contexts where economic support would be more effective.
 
 ##### Island Nations vs. Continental Economies
 An interesting sub-pattern emerges among the island nations in the dataset (**Mauritius, Seychelles, Maldives**). Regardless of their region, these nations consistently show **Primary School Enrollment** as a top-tier predictor (26-35%). This may indicate that island economies, which often rely on service or tourism sectors rather than agriculture or heavy industry, have health outcomes that are more tightly coupled with the educational attainment of their workforce.
 
-## Discussion
-
 ## Conclusion
 For our final project, we were curious to understand if, and how, infrastructural improvements and growth in human capital contributed to the distinct trajectories in life expectancy and fertility measurements of Sub-Saharan Africa and South Asia. To explore this question more, we conducted descriptive data analyses by, first, creating a heatmap to visualize the correlations between our 5 variables (life expectancy at birth, basic water access, basic sanitation access, primary school enrollment, and GDP per capita). 
+
 From the results, we observed that correlation patterns differ substantially between Sub-Saharan Africa and South Asia as South Asia exhibits more variability in how each variable correlates to each other, whereas in Sub-Saharan Africa the positive associations point toward a consistent pattern in how the variables relate. With further exploration, we created scatterplots for each region that mapped each variable over time, and also created country-level plots that mapped each variable for the top 3 and bottom 3 GDP-per-capita countries within each region. From these visualizations, we observed how, although both regions increased over time for all variables, South Asia typically started at higher baseline amounts and experienced greater growth over the time period 2000-2020. Significantly, we saw that sanitation access shows a significant difference as South Asia improves from roughly 40 to nearly 80 percent coverage, compared to Sub-Saharan Africa’s rise from about 25 to the high 30s. Within our country-level plots, we saw the relation between national income and the variables. While there exists a trend of higher income countries experiencing greater public health infrastructure and life expectancy, the gap is much greater in Sub-Saharan Africa than South Asia, as lower income countries in South Asia still start off at a higher baseline GDP-per-capita than those of the low income countries in Sub-Saharan Africa, indicating that while both regions improve over time, structural and political barriers continue to hamper and unevenly influence development in Sub-Saharan Africa.
+
 Then, we ran three types of linear regression models, a regular OLS model, a parallel lines model, and an interaction model. Across all models, the linear regressions demonstrated that increased access to basic drinking water and sanitation is strongly associated with higher life expectancy, even after controlling for primary school enrollment and GDP per capita. Primary school enrollment also displayed a smaller but positive relationship with life expectancy, while GDP per capita had little power once public health variables were included. Importantly, the parallel-lines model revealed a persistent regional gap: Sub-Saharan African countries have substantially lower predicted life expectancy than South Asian countries even when holding water, sanitation, schooling, and GDP constant. This suggests that structural or unmeasured factors, such as health system capacity, conflict, or population disease burden, continue to shape regional differences in survival outcomes. Although these results are correlational and subject to multicollinearity, they reinforce the broader finding that investments in basic public health infrastructure are among the most meaningful predictors of improved life expectancy over time.
 
 ## References
