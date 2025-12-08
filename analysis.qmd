@@ -26,6 +26,42 @@ Compared with Sub-Saharan Africa, South Asia has seen faster increases in water 
 
 ## Data Description
 
+Data was obtained from the World Development Indicators using python package wbgapi. Fields “life_expectancy_birth”, “basic_water_access_pct”, “basic_sanitation_access_pct”, “primary_school_enrollment”, “gdp_per_capita_constant_usd” were extracted. Data was filtered for countries (under region sub-Saharan African and South Asia) and years (2000-2020). Summary stats (average, max, min) were computed for each field.
+
+Variables of Interest are the following. Summary statistics are taken overall for sub-Saharan African and South Asia together. 
+
+Life expectancy at birth, total (years)	[life_expectancy_birth]
+Max: 79.707000
+Min: 14.665000
+Average: 59.64814
+
+People using at least basic drinking water services (%) [basic_water_access_pct]
+Max: 99.995800
+Min: 18.682303
+Average: 64.875792
+
+People using at least basic sanitation services (%) [basic_sanitation_access_pct]
+Max:  100.000000
+Min: 2.793897
+Average: 35.625811
+
+School enrollment, primary (% gross) [primary_school_enrollment]
+Max: 156.614258
+Min: 22.785419
+Average: 99.296595
+
+GDP per capita (constant 2015 US$)	 [gdp_per_capita_constant_usd]
+Max: 19481.646105
+Min: 233.032393
+Average: 19481.646105
+
+To address this question, we are conducting the following analyses:
+1. Correlation analysis based on the three lowest-GDP and three highest-GDP countries in each region, using the selected variables of interest.
+2. Heat map for correlation matrices of variables of interest to start exploring initial relationships.
+3. Linear regression model to see how the variables affected life expectancy.
+4. Machine learning analysis to see how important the variables are in relation to life expectancy.
+
+
 ## Data Analysis
 
 ### Variable Correlations: Heatmap
